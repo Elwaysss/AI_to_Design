@@ -3,7 +3,7 @@
     "base": {
       "clay": {
         "300": { "value": "#D9614A", "type": "color", "comment": "Boston Clay — primary subtle / hover-up" },
-        "500": { "value": "#B8422E", "type": "color", "comment": "Boston Clay — brand primary driver" },
+        "500": { "value": "#C04F38", "type": "color", "comment": "Boston Clay — brand primary driver (CI demo: bumped slightly redder for token-diff workflow test)" },
         "700": { "value": "#7E2A1C", "type": "color", "comment": "Boston Clay — primary pressed / hover" }
       },
       "ink": {
