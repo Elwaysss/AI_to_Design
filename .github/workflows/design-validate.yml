@@ -1,0 +1,42 @@
+name: design.md validate
+
+on:
+  push:
+    paths:
+      - 'DESIGN.md'
+      - 'tokens/**'
+      - 'scripts/validate-design.mjs'
+      - '.github/workflows/design-validate.yml'
+  pull_request:
+    paths:
+      - 'DESIGN.md'
+      - 'tokens/**'
+      - 'scripts/validate-design.mjs'
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install
+        run: npm ci
+
+      - name: Validate DESIGN.md (structure + WCAG AA)
+        run: npm run design:validate
+
+      - name: Build & validate design tokens
+        run: npm run tokens:build
+
+      - name: Upload compiled token artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: design-tokens-${{ github.sha }}
+          path: dist/
+          retention-days: 14

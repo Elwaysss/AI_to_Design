@@ -1,0 +1,98 @@
+/*
+ * src/style.css — Tailwind v4 entry (Vue 3 + Vite project).
+ *
+ * Imported once from src/main.ts:
+ *     import './style.css'
+ *
+ * Tailwind v4 needs NO tailwind.config.js — the @theme block below IS the config.
+ * The `npx tailwindcss init` command was removed in v4 on purpose.
+ *
+ * Layer order:
+ *   1. @import "tailwindcss"                 — Tailwind core
+ *   2. @import "../dist/css/variables.css"   — compiled tokens (--token-* prefix)
+ *   3. @theme { ... }                        — bind --token-* → Tailwind semantic vars
+ */
+
+@import "tailwindcss";
+@import "../dist/css/variables.css";
+
+@theme {
+  /* ─── Colors ─── */
+  --color-brand-primary:        var(--token-color-brand-primary);
+  --color-brand-primary-hover:  var(--token-color-brand-primary-hover);
+  --color-brand-primary-subtle: var(--token-color-brand-primary-subtle);
+
+  --color-surface-canvas: var(--token-color-surface-canvas);
+  --color-surface-paper:  var(--token-color-surface-paper);
+  --color-surface-sunken: var(--token-color-surface-sunken);
+
+  --color-border-subtle:  var(--token-color-border-subtle);
+  --color-border-default: var(--token-color-border-default);
+  --color-border-strong:  var(--token-color-border-strong);
+
+  --color-text-primary:   var(--token-color-text-primary);
+  --color-text-secondary: var(--token-color-text-secondary);
+  --color-text-muted:     var(--token-color-text-muted);
+  --color-text-inverse:   var(--token-color-text-inverse);
+
+  --color-feedback-success: var(--token-color-feedback-success);
+  --color-feedback-warning: var(--token-color-feedback-warning);
+  --color-feedback-danger:  var(--token-color-feedback-danger);
+  --color-feedback-info:    var(--token-color-feedback-info);
+
+  /* ─── Typography ─── */
+  --font-display: var(--token-font-family-display);
+  --font-sans:    var(--token-font-family-body);
+  --font-mono:    var(--token-font-family-mono);
+
+  --text-xs:   var(--token-font-size-xs);
+  --text-sm:   var(--token-font-size-sm);
+  --text-base: var(--token-font-size-base);
+  --text-lg:   var(--token-font-size-lg);
+  --text-xl:   var(--token-font-size-xl);
+  --text-2xl:  var(--token-font-size-2xl);
+  --text-3xl:  var(--token-font-size-3xl);
+  --text-4xl:  var(--token-font-size-4xl);
+
+  /* ─── Radii ─── */
+  --radius-sm:   var(--token-radius-sm);
+  --radius-md:   var(--token-radius-md);
+  --radius-lg:   var(--token-radius-lg);
+  --radius-xl:   var(--token-radius-xl);
+  --radius-pill: var(--token-radius-pill);
+
+  /* ─── Spacing scale (4 px base) ─── */
+  --spacing-1:  var(--token-spacing-1);
+  --spacing-2:  var(--token-spacing-2);
+  --spacing-3:  var(--token-spacing-3);
+  --spacing-4:  var(--token-spacing-4);
+  --spacing-6:  var(--token-spacing-6);
+  --spacing-8:  var(--token-spacing-8);
+  --spacing-12: var(--token-spacing-12);
+  --spacing-16: var(--token-spacing-16);
+  --spacing-24: var(--token-spacing-24);
+  --spacing-32: var(--token-spacing-32);
+
+  /* ─── Elevation ─── */
+  --shadow-flat:   var(--token-elevation-flat);
+  --shadow-raised: var(--token-elevation-raised);
+  --shadow-high:   var(--token-elevation-high);
+  --shadow-modal:  var(--token-elevation-modal);
+}
+
+/* Global page baseline */
+html, body {
+  background: var(--color-surface-canvas);
+  color: var(--color-text-primary);
+  font-family: var(--font-sans);
+}
+
+/* Focus ring (DESIGN.md § 4) */
+:focus-visible {
+  outline: 2px solid var(--color-brand-primary);
+  outline-offset: 2px;
+}
+
+#app {
+  min-height: 100vh;
+}

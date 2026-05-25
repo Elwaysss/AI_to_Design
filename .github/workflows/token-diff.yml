@@ -1,0 +1,43 @@
+name: token diff
+
+on:
+  pull_request:
+    paths:
+      - 'DESIGN.md'
+      - 'tokens/**'
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  diff:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Diff DESIGN.md (base vs head)
+        run: |
+          git fetch origin "${{ github.base_ref }}" --depth=1
+          git show "origin/${{ github.base_ref }}:DESIGN.md" > /tmp/DESIGN.base.md || echo "" > /tmp/DESIGN.base.md
+          {
+            echo "## Design token diff"
+            echo ""
+            echo '```diff'
+            diff -u /tmp/DESIGN.base.md DESIGN.md || true
+            echo '```'
+            echo ""
+            echo "_Reviewers: list every component that consumes the changed tokens in the PR body. Then approve._"
+          } > diff-report.md
+
+      - name: Comment diff on PR
+        uses: marocchino/sticky-pull-request-comment@v2
+        with:
+          header: design-token-diff
+          path: diff-report.md

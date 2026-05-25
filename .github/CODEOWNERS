@@ -1,0 +1,27 @@
+# CODEOWNERS — solo maintainer for now (@Elwaysss).
+# When the team grows, split into per-directory teams (design-ops / frontend / qa / platform).
+
+# Default — everything requires the maintainer's review.
+*                            @Elwaysss
+
+# ── SSOT: design system ──────────────────────────────────────
+DESIGN.md                    @Elwaysss
+AGENTS.md                    @Elwaysss
+tokens/**                    @Elwaysss
+style-dictionary.config.mjs  @Elwaysss
+
+# ── Business logic ───────────────────────────────────────────
+src/machines/**              @Elwaysss
+src/style.css                @Elwaysss
+
+# ── UI ───────────────────────────────────────────────────────
+src/components/**            @Elwaysss
+
+# ── Quality ──────────────────────────────────────────────────
+tests/**                     @Elwaysss
+playwright.config.ts         @Elwaysss
+
+# ── Pipeline ─────────────────────────────────────────────────
+.github/**                   @Elwaysss
+scripts/**                   @Elwaysss
+docs/**                      @Elwaysss

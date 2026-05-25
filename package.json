@@ -1,0 +1,48 @@
+{
+  "name": "ai-design-paradigm",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "AI-driven design & engineering pipeline. Vue 3 + Vite + Tailwind v4, governed by DESIGN.md as the SSOT.",
+  "scripts": {
+    "dev": "vite",
+    "build": "npm run tokens:build && vue-tsc -b && vite build",
+    "preview": "vite preview",
+
+    "tokens:build": "style-dictionary build --config style-dictionary.config.mjs",
+    "tokens:clean": "rimraf dist",
+
+    "design:validate": "npx -y @google/design.md@latest validate DESIGN.md || node scripts/validate-design.mjs DESIGN.md",
+    "design:diff":     "npx -y @google/design.md@latest diff",
+
+    "test:e2e":    "playwright test",
+    "test:visual": "chromatic --playwright",
+
+    "agent:plan": "playwright test --agent=planner",
+    "agent:heal": "playwright test --agent=healer",
+
+    "postinstall": "npm run tokens:build"
+  },
+  "dependencies": {
+    "@xstate/vue": "^5.0.0",
+    "vue": "^3.5.34",
+    "xstate": "^5.0.0"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.50.0",
+    "@tailwindcss/vite": "^4.3.0",
+    "@types/node": "^24.12.3",
+    "@vitejs/plugin-vue": "^6.0.6",
+    "@vue/tsconfig": "^0.9.1",
+    "chromatic": "^11.0.0",
+    "rimraf": "^6.0.0",
+    "style-dictionary": "^4.0.0",
+    "tailwindcss": "^4.3.0",
+    "typescript": "~6.0.2",
+    "vite": "^8.0.12",
+    "vue-tsc": "^3.2.8"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

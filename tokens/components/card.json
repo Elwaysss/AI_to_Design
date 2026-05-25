@@ -1,0 +1,12 @@
+{
+  "card": {
+    "radius":  { "value": "{radius.lg}",           "type": "dimension" },
+    "padding": { "value": "{spacing.6}",           "type": "dimension" },
+    "bg":      { "value": "{color.surface.paper}", "type": "color" },
+    "border":  { "value": "{color.border.subtle}", "type": "color" },
+    "shadow": {
+      "raised": { "value": "{elevation.raised}", "type": "boxShadow" },
+      "high":   { "value": "{elevation.high}",   "type": "boxShadow" }
+    }
+  }
+}

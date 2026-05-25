@@ -1,0 +1,14 @@
+{
+  "mcpServers": {
+    "mermaid": {
+      "command": "npx",
+      "args": ["-y", "mcp-mermaid"],
+      "env": {}
+    },
+    "stately": {
+      "command": "npx",
+      "args": ["-y", "@statelyai/mcp-server"],
+      "env": {}
+    }
+  }
+}

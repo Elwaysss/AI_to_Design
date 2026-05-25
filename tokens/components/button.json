@@ -1,0 +1,39 @@
+{
+  "button": {
+    "height": {
+      "sm": { "value": "32px", "type": "dimension" },
+      "md": { "value": "40px", "type": "dimension" },
+      "lg": { "value": "48px", "type": "dimension" }
+    },
+    "padding-x": {
+      "sm": { "value": "{spacing.3}", "type": "dimension" },
+      "md": { "value": "{spacing.4}", "type": "dimension" },
+      "lg": { "value": "{spacing.6}", "type": "dimension" }
+    },
+    "radius": { "value": "{radius.md}", "type": "dimension" },
+    "primary": {
+      "bg":       { "value": "{color.brand.primary}",       "type": "color" },
+      "bg-hover": { "value": "{color.brand.primary-hover}", "type": "color" },
+      "fg":       { "value": "{color.text.inverse}",        "type": "color" }
+    },
+    "secondary": {
+      "bg":       { "value": "{color.surface.paper}",  "type": "color" },
+      "bg-hover": { "value": "{color.surface.sunken}", "type": "color" },
+      "border":   { "value": "{color.border.default}", "type": "color" },
+      "fg":       { "value": "{color.text.primary}",   "type": "color" }
+    },
+    "ghost": {
+      "fg":       { "value": "{color.text.primary}",   "type": "color" },
+      "bg-hover": { "value": "{color.surface.sunken}", "type": "color" }
+    },
+    "danger": {
+      "bg":       { "value": "{color.feedback.danger}", "type": "color" },
+      "fg":       { "value": "{color.text.inverse}",    "type": "color" }
+    },
+    "focus-ring": {
+      "color":  { "value": "{color.brand.primary}", "type": "color" },
+      "width":  { "value": "2px",                   "type": "dimension" },
+      "offset": { "value": "2px",                   "type": "dimension" }
+    }
+  }
+}
