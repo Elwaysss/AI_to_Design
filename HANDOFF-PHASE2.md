@@ -257,7 +257,126 @@ The agent should then:
 
 ---
 
-*End of Phase 2 handoff. Total: ~10 KB. If you (the next agent) read both
-HANDOFF.md and this file and understand: token pipeline still SSOT-driven →
-Vue 3 + @xstate/vue → CI now actually executes Playwright → Phase 3 = AI
-test agents + Chromatic baselines, you're caught up.*
+*End of Phase 2 handoff (original closure snapshot). Below is § 8 — late-session
+amendments added 90 minutes after Phase 2 closed.*
+
+---
+
+## 8. Late-session amendments (2026-05-27 17:04 UTC+8)
+
+After Phase 2 closed, the session continued with several rounds of strategic
+discussion that materially changed Phase 3 and 4 scope. Recording here so the
+next agent / future me does not re-discover or re-decide these. **§ 8 is the
+operative current state of Phase 3-4 planning**; § 5 above is preserved as the
+original closure snapshot.
+
+### 8.1 Confirmed scope: solo developer running multiple products
+
+This is NOT a team workflow paradigm. All decisions below assume one person
+maintaining 2-5 simultaneous side products. Team / open-source / contributor
+considerations are explicitly out of scope.
+
+### 8.2 Multi-product reuse strategy: GitHub Template Repository
+
+Of three considered strategies — (A) independent repos with cherry-pick,
+(B) pnpm workspaces monorepo, (C) GitHub Template Repository — we chose **C**.
+
+Rationale: strongest isolation per product (secrets, CI, failure radius), lowest
+cognitive load for a solo dev, GitHub-native (zero new tooling), can evolve
+toward B later if 3+ products converge on shared tokens.
+
+Action item: turn this repo into a GitHub Template (Settings → Template repository
+checkbox). Rename to `ai-design-paradigm-starter` when convenient.
+
+### 8.3 Confirmed paradigm scope: UI layer only, ~30-40% of full-stack work
+
+The paradigm (DESIGN.md SSOT + tokens + machines + CI guards + Test Agents)
+explicitly covers only the **frontend UI consistency layer**. The other
+~60-70% of a production product (backend API, auth, database, env, monitoring,
+deployment, persistent state, data fetching) is **NOT in scope**. Use industry
+standards for those layers:
+
+| Layer | Recommended (solo) |
+|---|---|
+| Backend + Auth + DB | Supabase |
+| Hosting + CDN | Vercel |
+| Error tracking | Sentry |
+| Analytics | PostHog or Plausible |
+| Persistent state | Pinia |
+| Data fetching | TanStack Query for Vue (or plain fetch + Pinia) |
+| Form validation | VeeValidate or Zod |
+
+Do NOT extend the paradigm to cover these layers. They have mature solutions
+already, and forcing them through DESIGN.md / tokens would be cargo-culting.
+
+If a future need arises that genuinely transcends UI (e.g. API contract
+governance via OpenAPI), spin off a parallel BACKEND.md paradigm rather than
+bloating this one.
+
+### 8.4 Phase 3 redefined for solo-multi-product (5-7 days focused work)
+
+Expands original 5-item entry plan from § 5 to 9 items, drops team-oriented
+work (CODEOWNERS depth, public README polish, demo recording for sharing):
+
+| # | Task | Days | Priority |
+|---|---|---|---|
+| **P3.1** | Template Repository + `npm run init` interactive script for 30-second new-product scaffold (asks name + brand color + optional brand template; rewrites package.json / DESIGN.md / deletes demo SFC) | 2 | **HIGHEST** |
+| **P3.2** | Add `CHROMATIC_PROJECT_TOKEN` to GitHub repo secrets, re-bump a color to verify upload works | 1 | high |
+| **P3.3** | `npx playwright init-agents --loop=cursor` → commit `.github/chatmodes/{planner,generator,healer}.chatmode.md` to starter (so every forked product inherits them) | 2 | high (was P3.3+P3.4 in original) |
+| **P3.5** | `npm run design:from <brand>` script: vendor `awesome-design-md-main` (73 brands) into starter or use it via submodule, AI-converts target brand's DESIGN.md into our YAML-frontmatter format, rewrites tokens/base/* | 2 | high (highest "wow per minute" for solo dev) |
+| **P3.6** | `npm run supabase:init` script: creates Supabase project via management API, writes `.env.local`, applies schema, rewires `loginMachine.authenticate` from stub to real Supabase Auth call | 2 | **NEW, high** |
+| **P3.7** | `npm run vercel:init` script: `vercel link` + sync `.env.local` to Vercel env vars + add `vercel.json` if needed | 1 | **NEW, medium** |
+| **P3.8** | Dynamic port allocation in `vite.config.ts` based on `hash(package.json name)` so 3+ products dev-serve simultaneously without port conflict | 0.5 | **NEW, medium** |
+| **P3.9** | Personal playbook at `~/dev/personal-playbook.md` (NOT inside any repo) tracking AI model preferences, prompt templates, cross-product debugging patterns, "lessons that bit me twice" | continuous | **NEW, ongoing** |
+
+Dropped items (no longer in scope):
+- ~~P3.4 Healer demo GIF recording for social sharing~~ — solo dev, no audience
+- ~~Detailed "Using this template" public-facing README~~ — you are the only user, 30-word note is enough
+
+### 8.5 Phase 4 redefined: two real utility products as the acceptance test
+
+Original Phase 4 said "接 Supabase + 多页面 + 部署 = 上线产品" with 8 layers.
+Refined to a **validation experiment**:
+
+1. **product-001**: a small utility you yourself use daily.
+   Candidate ideas: reading list with tags, habit tracker, quick notes (Apple-Notes-like with sync), bookmark + AI summary, anything ≤ 5 features.
+   MUST ship MVP in **1 week**. First user is you.
+
+2. **product-002**: another small utility, started from the **same Template**, to validate "**second product is 2-3x faster than first**". This is the real acceptance criterion for the paradigm being worth the effort.
+
+Drop from Phase 4 scope (until product-001 actually exists):
+- "find friends / external users to test"
+- "monitoring sophistication"
+- "commercial / scale concerns"
+
+This phase is about **validation**, not commercial launch.
+
+Target: 1 month from now, you have 2 deployed utilities you actually use daily +
+measured numbers proving paradigm accelerates iteration (e.g. "product-001 took
+6 days, product-002 took 2.5 days, paradigm gave 2.4x speedup").
+
+### 8.6 Recommended starting point for next session
+
+Open a fresh chat window. First message to the new agent should be:
+
+> Read `HANDOFF.md` and `HANDOFF-PHASE2.md` (especially § 8) in order.
+> User is Elwaysss, solo developer running multiple side products on this
+> paradigm. Phase 1 + 2 closed. Today we start Phase 3 — begin with P3.1
+> (Template Repository + `npm run init` script). Use plan mode first.
+
+The new agent should then:
+1. Read both handoff files in full.
+2. Read `AGENTS.md` and the agent-relevant sections of `DESIGN.md` (§ 1, § 2, § 4, § 7).
+3. Confirm `main` is up to date.
+4. Switch to plan mode and design P3.1 in detail (which files to add / edit, what `npm run init` interactively asks, naming conventions).
+5. Ask user to approve before writing code.
+
+---
+
+*End of late-session amendments (~85 lines). Session total runtime from initial
+"从 § 4 接着走" to this commit: approximately 6h 45min. If you (the next agent)
+read both HANDOFF.md and this file in full and understand: token pipeline still
+SSOT-driven → Vue 3 + @xstate/vue → CI now actually executes Playwright → scope
+is solo-multi-product → strategy is GitHub Template Repository → UI-only
+paradigm complemented by Supabase/Vercel for other layers → next step is P3.1,
+you're fully caught up.*
