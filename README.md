@@ -7,6 +7,7 @@ workflows.
 > Synced to <https://github.com/Elwaysss/AI_to_Design>.
 
 **👉 First time here? Open `SETUP.md` and follow steps 0–7.**
+**👉 Resuming a previous session (or a new AI agent)? Read `HANDOFF.md` first.**
 
 ## Repo layout
 
