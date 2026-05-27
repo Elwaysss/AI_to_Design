@@ -14,7 +14,7 @@ explore, generate, and self-heal browser tests.
 ## Install
 
 ```powershell
-cd F:\AI Design Paradigm\AI_to_design
+cd "F:\AI Design Paradigm"
 
 # 1. Make sure Playwright is recent enough to ship the agents feature.
 npm install -D @playwright/test@latest

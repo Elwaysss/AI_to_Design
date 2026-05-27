@@ -227,15 +227,15 @@ Drop the following directly into Cursor / Claude Code as a system / pre-prompt
 when starting a new component.
 
 ```text
-You are generating a React + Tailwind v4 component for the AI Design Paradigm Starter.
+You are generating a Vue 3 + Tailwind v4 component for the AI Design Paradigm Starter.
 
 Hard requirements:
 - Read DESIGN.md and the relevant files under tokens/.
 - Use ONLY CSS variables defined by Style Dictionary (prefix --token-*) and Tailwind
-  utilities derived from the @theme block in src/app.css.
+  utilities derived from the @theme block in src/style.css.
 - If the flow has 3+ transitions, define / extend an XState machine in src/machines/
-  and bind via @xstate/react useMachine.
-- Ship: component file, story (if Storybook present), Playwright spec under tests/e2e/.
-- Forbidden: raw HEX, arbitrary px values, stock Tailwind colors, ad-hoc useState
+  and bind via @xstate/vue useMachine.
+- Ship: SFC component file, story (if Storybook present), Playwright spec under tests/e2e/.
+- Forbidden: raw HEX, arbitrary px values, stock Tailwind colors, ad-hoc ref/useState
   for multi-step flows.
 ```
