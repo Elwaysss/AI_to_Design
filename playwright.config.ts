@@ -21,6 +21,19 @@ export default defineConfig({
     video: 'retain-on-failure'
   },
 
+  /**
+   * Auto-start the Vite dev server so `npm run test:e2e` works locally and
+   * in CI without a separate orchestration step. `reuseExistingServer` keeps
+   * local iteration fast: if you already ran `npm run dev`, Playwright reuses
+   * that process instead of spawning a duplicate.
+   */
+  webServer: {
+    command: 'npm run dev',
+    url: 'http://127.0.0.1:5173',
+    reuseExistingServer: !process.env.CI,
+    timeout: 120 * 1000
+  },
+
   projects: [
     { name: 'chromium', use: { ...devices['Desktop Chrome'] } },
     { name: 'webkit',   use: { ...devices['Desktop Safari'] } },
