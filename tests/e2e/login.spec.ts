@@ -1,4 +1,4 @@
-import { test, expect } from '@playwright/test';
+import { test, expect } from '@chromatic-com/playwright';
 
 /**
  * E2E spec for the LoginForm + loginMachine flow.
@@ -31,8 +31,8 @@ test.describe('login form', () => {
     await page.getByLabel('Password').fill('correctpw');
     const cta = page.getByRole('button', { name: 'Sign in' });
     const bg = await cta.evaluate((el) => getComputedStyle(el).backgroundColor);
-    // #C04F38 — clay.500 after the Phase 1 token bump.
-    expect(bg).toBe('rgb(192, 79, 56)');
+    // #B85230 — clay.500 after P3.2 Chromatic verify bump.
+    expect(bg).toBe('rgb(184, 82, 48)');
   });
 
   test('shows error and recovers on retry when authenticate rejects', async ({ page }) => {

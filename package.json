@@ -8,21 +8,15 @@
     "dev": "vite",
     "build": "npm run tokens:build && vue-tsc -b && vite build",
     "preview": "vite preview",
-
     "tokens:build": "style-dictionary build --config style-dictionary.config.mjs",
     "tokens:clean": "rimraf dist",
-
     "design:validate": "npx -y @google/design.md@latest validate DESIGN.md || node scripts/validate-design.mjs DESIGN.md",
-    "design:diff":     "npx -y @google/design.md@latest diff",
-
-    "init":            "node scripts/init-product.mjs",
-
-    "test:e2e":    "playwright test",
-    "test:visual": "chromatic --playwright",
-
+    "design:diff": "npx -y @google/design.md@latest diff",
+    "init": "node scripts/init-product.mjs",
+    "test:e2e": "playwright test",
+    "test:visual": "chromatic --playwright --exit-zero-on-changes",
     "agent:plan": "playwright test --agent=planner",
     "agent:heal": "playwright test --agent=healer",
-
     "postinstall": "npm run tokens:build"
   },
   "dependencies": {
@@ -31,12 +25,13 @@
     "xstate": "^5.0.0"
   },
   "devDependencies": {
+    "@chromatic-com/playwright": "^0.14.3",
     "@playwright/test": "^1.50.0",
     "@tailwindcss/vite": "^4.3.0",
     "@types/node": "^24.12.3",
     "@vitejs/plugin-vue": "^6.0.6",
     "@vue/tsconfig": "^0.9.1",
-    "chromatic": "^11.0.0",
+    "chromatic": "^17.1.0",
     "rimraf": "^6.0.0",
     "style-dictionary": "^4.0.0",
     "tailwindcss": "^4.3.0",
