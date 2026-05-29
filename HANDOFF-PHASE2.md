@@ -320,7 +320,7 @@ work (CODEOWNERS depth, public README polish, demo recording for sharing):
 
 | # | Task | Days | Priority |
 |---|---|---|---|
-| **P3.1** | Template Repository + `npm run init` interactive script for 30-second new-product scaffold (asks name + brand color + optional brand template; rewrites package.json / DESIGN.md / deletes demo SFC) | 2 | **HIGHEST** |
+| **P3.1** | Template Repository + `npm run init` interactive script — **done** (`scripts/init-product.mjs`; demo kept by default, `--strip-demo` optional) | 2 | **HIGHEST** |
 | **P3.2** | Add `CHROMATIC_PROJECT_TOKEN` to GitHub repo secrets, re-bump a color to verify upload works | 1 | high |
 | **P3.3** | `npx playwright init-agents --loop=cursor` → commit `.github/chatmodes/{planner,generator,healer}.chatmode.md` to starter (so every forked product inherits them) | 2 | high (was P3.3+P3.4 in original) |
 | **P3.5** | `npm run design:from <brand>` script: vendor `awesome-design-md-main` (73 brands) into starter or use it via submodule, AI-converts target brand's DESIGN.md into our YAML-frontmatter format, rewrites tokens/base/* | 2 | high (highest "wow per minute" for solo dev) |

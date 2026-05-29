@@ -3,8 +3,8 @@
  *
  * This is the *canonical example* of how every multi-step UI flow in this repo
  * should be modeled. The actor itself is framework-agnostic; Vue 3 components
- * consume it via `useMachine` from `@xstate/vue` (see src/components/LoginForm.vue
- * for the canonical wiring). See AGENTS.md § "Hard Rules".
+ * consume it via `useMachine` from `@xstate/vue`. See AGENTS.md § "Hard Rules"
+ * and src/components/ for example Vue SFC wiring.
  *
  * Visualize / edit at https://stately.ai by pasting this definition into the
  * Stately Studio import dialog.
