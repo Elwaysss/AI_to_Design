@@ -179,6 +179,57 @@ When you write a new flow, copy a relevant `*Machine.ts` from
 
 ---
 
+## 9. Template repository + `npm run init` (Phase 3)
+
+Use this repo as a **GitHub Template** to spin up new side products.
+
+### Enable template mode (one-time, on the starter repo)
+
+1. GitHub → **Settings** → **General**
+2. Check **Template repository**
+3. (Optional, later) Rename repo to `ai-design-paradigm-starter`
+
+### Start a new product
+
+```powershell
+# On GitHub: "Use this template" → create repo → clone
+cd "path\to\your-new-product"
+npm install
+npm run init
+```
+
+The init script asks:
+
+| Prompt | Default | Notes |
+|---|---|---|
+| Product display name | — | e.g. `Reading List` |
+| npm package slug | kebab-case of name | e.g. `reading-list` |
+| Brand primary color | `#B8422E` | `#RRGGBB` format |
+| Brand template import | Skip | Coming in P3.5 — `npm run design:from` |
+| Remove demo components? | No | Yes or `--strip-demo` for blank shell |
+
+Non-interactive example:
+
+```powershell
+npm run init -- --name "Reading List" --slug reading-list --color "#2563EB" --force
+npm run init -- --name "Reading List" --slug reading-list --color "#2563EB" --strip-demo --force
+```
+
+> **PowerShell note:** quote the `--color` value (`"#2563EB"`) — bare `#` starts a comment.
+
+Init rewrites `package.json`, `DESIGN.md`, `tokens/base/color.json`, and `index.html`.
+Demo components (LoginForm) are **kept by default**; login spec color assertion is synced.
+Use `--strip-demo` to remove demos and write a minimal App shell + smoke spec.
+
+After init succeeds, commit:
+
+```powershell
+git add -A
+git commit -m "chore: init product scaffold"
+```
+
+---
+
 ## Troubleshooting
 
 ### `npm install` errors

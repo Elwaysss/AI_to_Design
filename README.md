@@ -7,6 +7,7 @@ workflows.
 > Synced to <https://github.com/Elwaysss/AI_to_Design>.
 
 **👉 First time here? Open `SETUP.md` and follow steps 0–7.**
+**👉 Starting a new product from this template? `npm run init` after clone (see SETUP.md §9).**
 **👉 Resuming a previous session (or a new AI agent)? Read `HANDOFF.md` (Phase 1 archive) then `HANDOFF-PHASE2.md` (current state) in order.**
 
 ## Repo layout
@@ -45,7 +46,8 @@ F:\AI Design Paradigm\        <- workspace root = Git repo root
 │   ├── e2e/                  <- Playwright specs
 │   └── visual/               <- Chromatic baselines (owned by Chromatic, not edited locally)
 ├── scripts/
-│   └── validate-design.mjs   <- fallback DESIGN.md validator
+│   ├── validate-design.mjs   <- fallback DESIGN.md validator
+│   └── init-product.mjs      <- npm run init — personalize a forked product
 └── docs/
     ├── playbook.md           <- team SOP, role re-shaping, KPIs
     ├── roadmap.md            <- phased gantt
@@ -62,8 +64,10 @@ F:\AI Design Paradigm\        <- workspace root = Git repo root
 
 ## Quickstart
 
+**New product from template:** GitHub → Use this template → clone → `npm install` → `npm run init`.
+
 ```powershell
-# 0. Migrate the pre-flatten Vite scaffold (one-time):
+# 0. Migrate the pre-flatten Vite scaffold (one-time, starter only):
 powershell -ExecutionPolicy Bypass -File .\migrate.ps1
 
 # 1. Sanity:
@@ -72,9 +76,9 @@ npm run design:validate
 
 # 2. Run:
 npm run dev
-# Open http://localhost:5173 — button should be Boston Clay (#B8422E).
+# Open http://localhost:5173 — LoginForm demo with brand-primary CTA.
 
-# 3. Tests (after writing your first spec):
+# 3. Tests:
 npm run test:e2e
 
 # 4. CI for visual regression:
@@ -88,7 +92,7 @@ npm run test:e2e
 - **Phase 2 — Behavior mapping & code-level reproduction** (modules 3 / 5)
   ⏳ XState actors + Tailwind v4 + AI component generation pipeline.
 - **Phase 3 — Long-term quality immune system** (modules 6 / 7)
-  ⏳ Playwright Test Agents + Chromatic + Healer + token-diff PR review.
+  ⏳ Playwright Test Agents + Chromatic + template init (`npm run init`).
 
 See `docs/roadmap.md` for the gantt and `docs/playbook.md` for the team handbook.
 

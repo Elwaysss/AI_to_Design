@@ -15,6 +15,8 @@
     "design:validate": "npx -y @google/design.md@latest validate DESIGN.md || node scripts/validate-design.mjs DESIGN.md",
     "design:diff":     "npx -y @google/design.md@latest diff",
 
+    "init":            "node scripts/init-product.mjs",
+
     "test:e2e":    "playwright test",
     "test:visual": "chromatic --playwright",
 
