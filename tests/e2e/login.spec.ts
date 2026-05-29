@@ -1,4 +1,4 @@
-import { test, expect } from '@playwright/test';
+import { test, expect } from '@chromatic-com/playwright';
 
 /**
  * E2E spec for the LoginForm + loginMachine flow.
