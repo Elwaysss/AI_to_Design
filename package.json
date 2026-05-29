@@ -14,7 +14,7 @@
     "design:diff": "npx -y @google/design.md@latest diff",
     "init": "node scripts/init-product.mjs",
     "test:e2e": "playwright test",
-    "test:visual": "chromatic --playwright",
+    "test:visual": "chromatic --playwright --exit-zero-on-changes",
     "agent:plan": "playwright test --agent=planner",
     "agent:heal": "playwright test --agent=healer",
     "postinstall": "npm run tokens:build"

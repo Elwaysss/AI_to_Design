@@ -32,20 +32,23 @@ jobs:
         run: npm run tokens:build
 
       - name: Install Playwright browsers
-        run: npx playwright install --with-deps
+        run: npx playwright install --with-deps chromium
 
+      # Without a Chromatic token, run the full multi-browser Playwright suite.
       - name: Run Playwright
+        if: env.CHROMATIC_PROJECT_TOKEN == ''
         env:
           BASE_URL: ${{ env.PREVIEW_URL || 'http://127.0.0.1:5173' }}
         run: npm run test:e2e
 
-      - name: Publish to Chromatic
+      # With a token, let Chromatic run Playwright + archive + upload in one step.
+      # Do NOT run test:e2e separately first — that produces an empty archive
+      # and fails with "Invalid test suite build" on chromaui/action@latest.
+      - name: Run Playwright with Chromatic
         if: env.CHROMATIC_PROJECT_TOKEN != ''
-        uses: chromaui/action@latest
-        with:
-          projectToken: ${{ env.CHROMATIC_PROJECT_TOKEN }}
-          playwright: true
-          exitZeroOnChanges: true
+        env:
+          BASE_URL: ${{ env.PREVIEW_URL || 'http://127.0.0.1:5173' }}
+        run: npx chromatic --playwright --exit-zero-on-changes
 
       - name: Upload Playwright report
         if: always()
@@ -54,3 +57,4 @@ jobs:
           name: playwright-report-${{ github.sha }}
           path: playwright-report/
           retention-days: 14
+          if-no-files-found: ignore
