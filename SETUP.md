@@ -205,8 +205,39 @@ The init script asks:
 | Product display name | — | e.g. `Reading List` |
 | npm package slug | kebab-case of name | e.g. `reading-list` |
 | Brand primary color | `#B8422E` | `#RRGGBB` format |
-| Brand template import | Skip | Coming in P3.5 — `npm run design:from` |
+| Brand template import | skip | Brand slug — runs `npm run design:from <slug>` |
 | Remove demo components? | No | Yes or `--strip-demo` for blank shell |
+
+### Import a brand design (`design:from`)
+
+Apply one of ~73 industry DESIGN.md templates from
+[voltagent/awesome-design-md](https://github.com/voltagent/awesome-design-md):
+
+```powershell
+# List available brands
+npm run design:from -- --list
+
+# Import Notion brand (fetches from GitHub if no local clone)
+npm run design:from -- notion
+
+# Preview without writing
+npm run design:from -- cursor --dry-run
+
+# Overwrite previous import
+npm run design:from -- stripe --force
+```
+
+Optional offline clone (faster, no network):
+
+```powershell
+git clone --depth 1 https://github.com/voltagent/awesome-design-md.git awesome-design-md-main
+```
+
+`design:from` rewrites `DESIGN.md`, `tokens/base/color.json`, `tokens/base/typography.json`,
+and syncs the login spec brand-primary RGB assertion. Then run `npm run tokens:build`.
+
+You can also import during `npm run init` — when prompted for brand slug, enter e.g. `notion`
+instead of `skip`.
 
 Non-interactive example:
 

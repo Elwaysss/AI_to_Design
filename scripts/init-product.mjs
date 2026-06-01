@@ -27,7 +27,7 @@ const ROOT = path.resolve(__dirname, '..');
 const MARKER = path.join(ROOT, '.init-complete.json');
 const DEFAULT_COLOR = '#B8422E';
 
-/** @typedef {{ name: string, slug: string, color: string, stripDemo: boolean, force: boolean }} InitConfig */
+/** @typedef {{ name: string, slug: string, color: string, stripDemo: boolean, force: boolean, brandImported?: boolean }} InitConfig */
 
 /** @param {string[]} argv */
 function parseArgs(argv) {
@@ -140,7 +140,13 @@ async function resolveConfig(partial) {
 
     color = await ask('Brand primary color (HEX)', DEFAULT_COLOR);
 
-    console.log('\n  Brand template import: Coming in P3.5 — npm run design:from <brand>\n');
+    const brandSlug = await ask('Import brand template (slug from design:from --list, or skip)', 'skip');
+    if (brandSlug && brandSlug.toLowerCase() !== 'skip') {
+      console.log(`\n  Running design:from ${brandSlug}...\n`);
+      await runCommand('node', ['scripts/design-from.mjs', brandSlug, '--force']);
+      stripDemo = await askYesNo('Remove demo components (LoginForm)?', false);
+      return resolveConfigAfterBrandImport({ name, slug, color, stripDemo, force: partial.force ?? false });
+    }
 
     stripDemo = await askYesNo('Remove demo components (LoginForm)?', false);
   }
@@ -154,7 +160,19 @@ async function resolveConfig(partial) {
     slug,
     color,
     stripDemo,
-    force: partial.force ?? false
+    force: partial.force ?? false,
+    brandImported: false
+  };
+}
+
+/** @param {InitConfig & { brandImported?: boolean }} config */
+async function resolveConfigAfterBrandImport(config) {
+  validateNpmName(config.slug || slugify(config.name));
+  return {
+    ...config,
+    slug: config.slug || slugify(config.name),
+    color: normalizeHex(config.color || DEFAULT_COLOR),
+    brandImported: true
   };
 }
 
@@ -220,6 +238,19 @@ async function patchDesignMd(config, colors) {
   );
 
   await writeText(filePath, `---\n${fm}\n---\n${body}`);
+}
+
+/** @param {InitConfig} config */
+async function patchDesignMdName(config) {
+  const filePath = path.join(ROOT, 'DESIGN.md');
+  let raw = await readFile(filePath, 'utf8');
+  raw = raw.replace(/(meta:\s*\n\s*name:\s*)"[^"]*"/, `$1"${config.name}"`);
+  raw = raw.replace(/^# [^-]+ — `DESIGN\.md`$/m, `# ${config.name} — \`DESIGN.md\``);
+  raw = raw.replace(
+    /You are generating a Vue 3 \+ Tailwind v4 component for [^.]+\./,
+    `You are generating a Vue 3 + Tailwind v4 component for ${config.name}.`
+  );
+  await writeText(filePath, raw);
 }
 
 /**
@@ -347,12 +378,17 @@ async function main() {
 
   await patchPackageJson(config);
   await patchIndexHtml(config);
-  await patchDesignMd(config, colors);
-  await patchColorTokens(config, colors);
+
+  if (!config.brandImported) {
+    await patchDesignMd(config, colors);
+    await patchColorTokens(config, colors);
+  } else {
+    await patchDesignMdName(config);
+  }
 
   if (config.stripDemo) {
     await stripDemo(config);
-  } else {
+  } else if (!config.brandImported) {
     await patchLoginSpec(colors.primary);
   }
 
