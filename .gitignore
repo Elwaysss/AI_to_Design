@@ -53,3 +53,5 @@ Thumbs.db
 
 # ─── Temp files ───
 node-version.tmp
+.init-complete.json
+.design-from.json
