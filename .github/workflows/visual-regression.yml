@@ -9,9 +9,6 @@ jobs:
   playwright:
     runs-on: ubuntu-latest
     timeout-minutes: 30
-    # GitHub Actions does not allow `secrets.*` to be referenced from a step
-    # `if:` expression. Hoisting the token into job-level env exposes it as
-    # `env.CHROMATIC_PROJECT_TOKEN`, which IS readable from a step's `if:`.
     env:
       CHROMATIC_PROJECT_TOKEN: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
       PREVIEW_URL: ${{ secrets.PREVIEW_URL }}
@@ -32,20 +29,27 @@ jobs:
         run: npm run tokens:build
 
       - name: Install Playwright browsers
-        run: npx playwright install --with-deps
+        run: npx playwright install --with-deps chromium
 
+      # No Chromatic token → full multi-browser functional suite.
       - name: Run Playwright
+        if: env.CHROMATIC_PROJECT_TOKEN == ''
         env:
           BASE_URL: ${{ env.PREVIEW_URL || 'http://127.0.0.1:5173' }}
         run: npm run test:e2e
 
+      # Chromatic token → two-step Playwright visual pipeline:
+      #   1) playwright test writes test-results/chromatic-archives/
+      #   2) chromatic --playwright reads archives and uploads
+      - name: Run Playwright (Chromatic archives)
+        if: env.CHROMATIC_PROJECT_TOKEN != ''
+        env:
+          BASE_URL: ${{ env.PREVIEW_URL || 'http://127.0.0.1:5173' }}
+        run: npx playwright test --project=chromium
+
       - name: Publish to Chromatic
         if: env.CHROMATIC_PROJECT_TOKEN != ''
-        uses: chromaui/action@latest
-        with:
-          projectToken: ${{ env.CHROMATIC_PROJECT_TOKEN }}
-          playwright: true
-          exitZeroOnChanges: true
+        run: npx chromatic --playwright --exit-zero-on-changes --ci
 
       - name: Upload Playwright report
         if: always()
@@ -54,3 +58,4 @@ jobs:
           name: playwright-report-${{ github.sha }}
           path: playwright-report/
           retention-days: 14
+          if-no-files-found: ignore

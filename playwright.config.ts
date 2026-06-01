@@ -34,11 +34,13 @@ export default defineConfig({
     timeout: 120 * 1000
   },
 
-  projects: [
-    { name: 'chromium', use: { ...devices['Desktop Chrome'] } },
-    { name: 'webkit',   use: { ...devices['Desktop Safari'] } },
-    { name: 'mobile',   use: { ...devices['iPhone 14'] } }
-  ],
+  projects: process.env.CHROMATIC_PROJECT_TOKEN
+    ? [{ name: 'chromium', use: { ...devices['Desktop Chrome'] } }]
+    : [
+        { name: 'chromium', use: { ...devices['Desktop Chrome'] } },
+        { name: 'webkit',   use: { ...devices['Desktop Safari'] } },
+        { name: 'mobile',   use: { ...devices['iPhone 14'] } }
+      ],
 
   // Wire Playwright Test Agents (Planner / Generator / Healer) here when adopted.
   // Docs: https://playwright.dev/docs/test-agents
