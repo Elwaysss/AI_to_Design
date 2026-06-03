@@ -59,3 +59,5 @@ node-version.tmp
 .init-complete.json
 .design-from.json
 .supabase-init.json
+.vercel-init.json
+.vercel/

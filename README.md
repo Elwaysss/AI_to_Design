@@ -8,7 +8,7 @@ workflows.
 
 **👉 First time here? Open `SETUP.md` and follow steps 0–7.**
 **👉 Starting a new product from this template? `npm run init` after clone (see SETUP.md §9).**
-**👉 Resuming a previous session (or a new AI agent)? Read `HANDOFF.md` (Phase 1 archive) then `HANDOFF-PHASE2.md` (current state) in order.**
+**👉 Resuming a previous session (or a new AI agent)? Read `HANDOFF.md` → `HANDOFF-PHASE2.md` → `HANDOFF-PHASE3.md` in order.**
 
 ## Repo layout
 
@@ -47,10 +47,15 @@ F:\AI Design Paradigm\        <- workspace root = Git repo root
 │   └── visual/               <- Chromatic baselines (owned by Chromatic, not edited locally)
 ├── scripts/
 │   ├── validate-design.mjs   <- fallback DESIGN.md validator
-│   └── init-product.mjs      <- npm run init — personalize a forked product
+│   ├── init-product.mjs      <- npm run init — personalize a forked product
+│   ├── design-from.mjs       <- npm run design:from — import brand DESIGN.md
+│   ├── supabase-init.mjs     <- npm run supabase:init
+│   └── vercel-init.mjs       <- npm run vercel:init
 └── docs/
     ├── playbook.md           <- team SOP, role re-shaping, KPIs
     ├── roadmap.md            <- phased gantt
+    ├── phase4/               <- product-001 ROI experiment
+    ├── test-agents-workflow.md
     ├── mcp-setup.md          <- Mermaid + Stately MCP config
     ├── playwright-test-agents.md
     └── docker-decision.md
@@ -76,7 +81,8 @@ npm run design:validate
 
 # 2. Run:
 npm run dev
-# Open http://localhost:5173 — LoginForm demo with brand-primary CTA.
+# Dev URL: npm run dev:port  (e.g. http://127.0.0.1:5264 for ai-design-paradigm)
+# LoginForm + OnboardingPanel demos with brand-primary CTA.
 
 # 3. Tests:
 npm run test:e2e
@@ -87,12 +93,10 @@ npm run test:e2e
 
 ## Phased rollout
 
-- **Phase 1 — Cognition base & constraint boundaries** (modules 1 / 4 / 2 in the strategy report)
-  ✅ Tokens, DESIGN.md, Git SSOT, CI guards.
-- **Phase 2 — Behavior mapping & code-level reproduction** (modules 3 / 5)
-  ⏳ XState actors + Tailwind v4 + AI component generation pipeline.
-- **Phase 3 — Long-term quality immune system** (modules 6 / 7)
-  ⏳ Playwright Test Agents + Chromatic + template init (`npm run init`).
+- **Phase 1 — Cognition base** — ✅ Tokens, DESIGN.md, Git SSOT, CI guards.
+- **Phase 2 — Behavior mapping** — ✅ `loginMachine` + LoginForm + Playwright e2e.
+- **Phase 3 — Quality immune system** — ✅ Chromatic, Test Agents, `init`, `design:from`, `supabase:init`, `vercel:init`, dynamic dev ports, `onboardingMachine` example.
+- **Phase 4 — ROI validation** — ⏳ Fork template → real product (see `docs/phase4/PRODUCT-001.md`).
 
 See `docs/roadmap.md` for the gantt and `docs/playbook.md` for the team handbook.
 

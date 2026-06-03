@@ -1,5 +1,7 @@
 # Playwright Test Agents — Quickstart
 
+> **Institutional workflow:** see [test-agents-workflow.md](test-agents-workflow.md).
+
 Playwright Test Agents is the official AI-test pipeline shipped with
 Playwright (docs: <https://playwright.dev/docs/test-agents>). It provides
 three agent roles that consume `DESIGN.md` + the running app to autonomously

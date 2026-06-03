@@ -85,10 +85,11 @@ npm run design:validate
 # Expected: ✔ DESIGN.md passed local validation (XX HEX values, 9 sections).
 
 npm run dev
-# Expected: Vite dev server on http://localhost:5173
+# Expected: Vite dev server on http://127.0.0.1:<port>  (npm run dev:port)
 ```
 
-Open <http://localhost:5173>. You should see:
+Run `npm run dev:port` for the URL (starter default was 5173; hashed port may differ).
+Open that URL. You should see:
 
 - A "Vite + Vue + DESIGN.md" heading in Inter Tight (display font).
 - A button with **Boston Clay (#B8422E)** background.
@@ -311,6 +312,41 @@ npm run dev
 E2E tests **keep using the demo stub** (no Supabase needed in CI). Playwright clears `VITE_SUPABASE_*` in `playwright.config.ts`.
 
 Get an access token for schema auto-apply: https://supabase.com/dashboard/account/tokens
+
+---
+
+## 11. Vercel deploy (`npm run vercel:init`)
+
+```powershell
+npm run vercel:init
+# or non-interactive:
+npm run vercel:init -- --yes --force
+```
+
+Writes `vercel.json` (Vite SPA), runs `vercel link`, and optionally syncs
+`VITE_*` keys from `.env.local` to Vercel production env.
+
+Deploy: `npx vercel --prod`
+
+---
+
+## 12. Dynamic dev port (multi-product parallel)
+
+Each fork gets a stable port from `package.json` `name`:
+
+```powershell
+npm run dev:port   # e.g. 5264 for ai-design-paradigm
+npm run dev        # binds 127.0.0.1:<port> with strictPort
+```
+
+Playwright uses the same port via `playwright.config.ts`. Editing `tokens/**/*.json`
+during `npm run dev` triggers automatic `tokens:build` (Vite watch plugin).
+
+---
+
+## 13. Phase 4 — first real product
+
+See [`docs/phase4/PRODUCT-001.md`](docs/phase4/PRODUCT-001.md) for the fork checklist and ROI day-tracking table.
 
 ---
 

@@ -32,10 +32,10 @@ jobs:
         run: npx playwright install --with-deps chromium
 
       # No Chromatic token → full multi-browser functional suite.
+      # baseURL comes from playwright.config.ts (hash of package.json name).
+      # Set secrets.PREVIEW_URL only when testing a deployed preview.
       - name: Run Playwright
         if: env.CHROMATIC_PROJECT_TOKEN == ''
-        env:
-          BASE_URL: ${{ env.PREVIEW_URL || 'http://127.0.0.1:5173' }}
         run: npm run test:e2e
 
       # Chromatic token → two-step Playwright visual pipeline:
@@ -43,8 +43,6 @@ jobs:
       #   2) chromatic --playwright reads archives and uploads
       - name: Run Playwright (Chromatic archives)
         if: env.CHROMATIC_PROJECT_TOKEN != ''
-        env:
-          BASE_URL: ${{ env.PREVIEW_URL || 'http://127.0.0.1:5173' }}
         run: npx playwright test --project=chromium
 
       - name: Publish to Chromatic

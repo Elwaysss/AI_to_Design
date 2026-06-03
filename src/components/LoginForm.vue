@@ -29,7 +29,7 @@ const onRetry = () => send({ type: 'RETRY' });
 </script>
 
 <template>
-  <main class="flex min-h-screen items-center justify-center bg-surface-canvas px-6 py-16">
+  <main class="flex w-full items-center justify-center px-6 py-16">
     <section
       class="w-full max-w-md rounded-xl border border-border-subtle bg-surface-paper p-8 shadow-raised"
       aria-labelledby="login-heading"

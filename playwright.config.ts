@@ -1,4 +1,12 @@
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
 import { defineConfig, devices } from '@playwright/test';
+import { devServerUrl, getDevPortFromRoot } from './scripts/lib/dev-port.mjs';
+
+const root = path.dirname(fileURLToPath(import.meta.url));
+const port = getDevPortFromRoot(root);
+const baseURL =
+  process.env.PREVIEW_URL?.trim() || process.env.BASE_URL?.trim() || devServerUrl(port);
 
 /**
  * Playwright configuration.
@@ -15,7 +23,7 @@ export default defineConfig({
   reporter: [['html', { open: 'never' }], ['list']],
 
   use: {
-    baseURL: process.env.BASE_URL ?? 'http://127.0.0.1:5173',
+    baseURL,
     trace: 'on-first-retry',
     screenshot: 'only-on-failure',
     video: 'retain-on-failure'
@@ -29,7 +37,7 @@ export default defineConfig({
    */
   webServer: {
     command: 'npm run dev',
-    url: 'http://127.0.0.1:5173',
+    url: baseURL,
     reuseExistingServer: !process.env.CI,
     timeout: 120 * 1000,
     // Force demo auth stub during e2e — even if developer has .env.local with Supabase.
@@ -45,9 +53,5 @@ export default defineConfig({
         { name: 'chromium', use: { ...devices['Desktop Chrome'] } },
         { name: 'webkit',   use: { ...devices['Desktop Safari'] } },
         { name: 'mobile',   use: { ...devices['iPhone 14'] } }
-      ],
-
-  // Wire Playwright Test Agents (Planner / Generator / Healer) here when adopted.
-  // Docs: https://playwright.dev/docs/test-agents
-  // agents: { planner: 'planner.md', generator: 'generator.md', healer: 'healer.md' }
+      ]
 });
