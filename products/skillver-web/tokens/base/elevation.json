@@ -1,0 +1,8 @@
+{
+  "elevation": {
+    "flat":   { "value": "0 0 0 1px rgba(23,23,21,0.06)", "type": "boxShadow" },
+    "raised": { "value": "0 1px 2px rgba(23,23,21,0.06), 0 1px 3px rgba(23,23,21,0.10)", "type": "boxShadow" },
+    "high":   { "value": "0 12px 32px -8px rgba(23,23,21,0.18)", "type": "boxShadow" },
+    "modal":  { "value": "0 32px 64px -16px rgba(23,23,21,0.28)", "type": "boxShadow" }
+  }
+}

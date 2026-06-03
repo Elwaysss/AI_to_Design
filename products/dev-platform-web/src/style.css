@@ -1,0 +1,29 @@
+@import "tailwindcss";
+
+:root {
+  --dp-primary: #2e6cb8;
+  --dp-text: #171715;
+  --dp-muted: #7a7a6f;
+  --dp-border: #e2e2da;
+  --dp-canvas: #fafaf7;
+}
+
+html,
+body {
+  min-height: 100vh;
+  margin: 0;
+  color: var(--dp-text);
+  font-family: "Inter", "PingFang SC", "Microsoft YaHei", system-ui, sans-serif;
+  font-size: 16px;
+  line-height: 1.5;
+  background: var(--dp-canvas);
+}
+
+#app {
+  min-height: 100vh;
+}
+
+code {
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-size: 0.875em;
+}

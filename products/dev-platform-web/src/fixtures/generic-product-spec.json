@@ -1,0 +1,10 @@
+{
+  "productName": "Demo SaaS",
+  "slug": "demo-saas",
+  "pages": [
+    { "id": "home", "title": "产品首页", "route": "/", "role": "访客", "summary": "价值主张 + CTA" },
+    { "id": "dashboard", "title": "工作台", "route": "/app", "role": "登录用户", "summary": "侧栏 + 主内容区" },
+    { "id": "login", "title": "登录", "route": "/login", "role": "访客", "summary": "邮箱/密码表单" }
+  ],
+  "representativePageId": "dashboard"
+}

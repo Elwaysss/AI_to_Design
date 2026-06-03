@@ -1,0 +1,34 @@
+{
+  "type": {
+    "display": {
+      "lg": {
+        "family":      { "value": "{font.family.display}",         "type": "fontFamily" },
+        "size":        { "value": "{font.size.4xl}",               "type": "dimension" },
+        "weight":      { "value": "{font.weight.semibold}",        "type": "fontWeight" },
+        "lineHeight":  { "value": "{font.line-height.tight}",      "type": "number" },
+        "tracking":    { "value": "{font.letter-spacing.display}", "type": "dimension" }
+      },
+      "md": {
+        "family":      { "value": "{font.family.display}",         "type": "fontFamily" },
+        "size":        { "value": "{font.size.3xl}",               "type": "dimension" },
+        "weight":      { "value": "{font.weight.semibold}",        "type": "fontWeight" },
+        "lineHeight":  { "value": "{font.line-height.tight}",      "type": "number" }
+      }
+    },
+    "heading": {
+      "h1": { "size": { "value": "{font.size.2xl}", "type": "dimension" }, "weight": { "value": "{font.weight.semibold}", "type": "fontWeight" } },
+      "h2": { "size": { "value": "{font.size.xl}",  "type": "dimension" }, "weight": { "value": "{font.weight.semibold}", "type": "fontWeight" } },
+      "h3": { "size": { "value": "{font.size.lg}",  "type": "dimension" }, "weight": { "value": "{font.weight.medium}",   "type": "fontWeight" } }
+    },
+    "body": {
+      "lg":   { "size": { "value": "{font.size.lg}",   "type": "dimension" }, "lineHeight": { "value": "{font.line-height.normal}", "type": "number" } },
+      "base": { "size": { "value": "{font.size.base}", "type": "dimension" }, "lineHeight": { "value": "{font.line-height.normal}", "type": "number" } },
+      "sm":   { "size": { "value": "{font.size.sm}",   "type": "dimension" }, "lineHeight": { "value": "{font.line-height.normal}", "type": "number" } }
+    },
+    "caption": {
+      "size":       { "value": "{font.size.xs}",            "type": "dimension" },
+      "weight":     { "value": "{font.weight.regular}",     "type": "fontWeight" },
+      "lineHeight": { "value": "{font.line-height.normal}", "type": "number" }
+    }
+  }
+}

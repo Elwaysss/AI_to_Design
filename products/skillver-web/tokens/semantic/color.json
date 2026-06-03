@@ -1,0 +1,31 @@
+{
+  "color": {
+    "brand": {
+      "primary":         { "value": "{color.base.cobalt.500}", "type": "color" },
+      "primary-hover":   { "value": "{color.base.cobalt.700}", "type": "color" },
+      "primary-subtle":  { "value": "{color.base.cobalt.300}", "type": "color" }
+    },
+    "surface": {
+      "canvas": { "value": "#FFFFFF",              "type": "color" },
+      "paper":  { "value": "#F6F5F4",              "type": "color" },
+      "sunken": { "value": "{color.base.ink.50}",  "type": "color" }
+    },
+    "border": {
+      "subtle":  { "value": "{color.base.ink.200}", "type": "color" },
+      "default": { "value": "{color.base.ink.300}", "type": "color" },
+      "strong":  { "value": "{color.base.ink.500}", "type": "color" }
+    },
+    "text": {
+      "primary":   { "value": "#1A1A1A",              "type": "color" },
+      "secondary": { "value": "#5D5B54",              "type": "color" },
+      "muted":     { "value": "{color.base.ink.500}", "type": "color" },
+      "inverse":   { "value": "#FFFFFF",              "type": "color" }
+    },
+    "feedback": {
+      "success": { "value": "{color.base.moss}",  "type": "color" },
+      "warning": { "value": "{color.base.amber}", "type": "color" },
+      "danger":  { "value": "#E03131",            "type": "color" },
+      "info":    { "value": "{color.base.lake}",  "type": "color" }
+    }
+  }
+}

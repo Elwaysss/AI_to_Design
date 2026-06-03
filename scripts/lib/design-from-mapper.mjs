@@ -5,6 +5,7 @@ import { readFile } from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { deriveBrandColors, hexToRgbString, normalizeHex } from './color-utils.mjs';
+import { extractBrandYamlTokens, extractTypoExtras } from './brand-yaml-tokens.mjs';
 import { getColorMap, getTypographyRoles, parseYaml, splitFrontmatter } from './yaml-lite.mjs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -84,11 +85,12 @@ function nearestScaleKey(px) {
 function extractTypography(roles) {
   const body = roles['body-md'] ?? roles.body ?? roles['body-md-medium'] ?? {};
   const display = roles['display-lg'] ?? roles['display-mega'] ?? roles['hero-display'] ?? roles['heading-1'] ?? {};
-  const code = roles.code ?? roles['code-block'] ?? {};
+  const monoRole = roles.mono ?? roles.code ?? roles['code-block'] ?? {};
+  const extras = extractTypoExtras(roles);
 
   const bodyFamily = quoteFontFamily(body.fontFamily ?? 'Inter, system-ui, sans-serif');
   const displayFamily = quoteFontFamily(display.fontFamily ?? body.fontFamily ?? 'Inter Tight, system-ui, sans-serif');
-  const monoFamily = quoteFontFamily(code.fontFamily ?? 'JetBrains Mono, ui-monospace, monospace');
+  const monoFamily = quoteFontFamily(monoRole.fontFamily ?? 'JetBrains Mono, ui-monospace, monospace');
 
   const bodyPx = parseFontSizePx(body.fontSize) ?? 16;
   const displayPx = parseFontSizePx(display.fontSize) ?? 25;
@@ -116,7 +118,10 @@ function extractTypography(roles) {
   return {
     font_family: { display: displayFamily, body: bodyFamily, mono: monoFamily },
     scale_px: scalePx,
-    base_size_px: bodyPx
+    base_size_px: bodyPx,
+    letter_spacing_display: display.letterSpacing ?? '-0.02em',
+    font_feature_tabular: extras.fontFeatureTabular,
+    font_feature_stylistic: extras.fontFeatureStylistic
   };
 }
 
@@ -162,13 +167,144 @@ function summarySentences(description, maxSentences = 3) {
   return parts.slice(0, maxSentences).join(' ');
 }
 
+/** @param {string} hex */
+function isDarkHex(hex) {
+  const h = normalizeHex(hex).slice(1);
+  const r = parseInt(h.slice(0, 2), 16);
+  const g = parseInt(h.slice(2, 4), 16);
+  const b = parseInt(h.slice(4, 6), 16);
+  return (r * 299 + g * 587 + b * 114) / 1000 < 128;
+}
+
+/** @param {string} body */
+function extractProseHexColors(body) {
+  /** @type {Record<string, string>} */
+  const byLabel = {};
+  for (const m of body.matchAll(/\*\*([^*]+)\*\*[^(]*\(`?(#[0-9A-Fa-f]{6})`?\)/gi)) {
+    const label = m[1].toLowerCase();
+    const hex = normalizeHex(m[2]);
+    if (/green|primary|brand accent|cta|accent/.test(label)) byLabel.primary = hex;
+    if (/near black|deepest|canvas|background|near-black/.test(label)) byLabel.canvas = hex;
+    if (/dark surface|card|container|elevated|paper|mid dark/.test(label)) byLabel.paper = hex;
+    if (/\bwhite\b|primary text|text-base/.test(label) && !/near white|off-?white/.test(label)) {
+      byLabel.text = hex;
+    }
+    if (/silver|secondary|muted|inactive/.test(label)) byLabel.muted = hex;
+    if (/negative|error|danger/.test(label)) byLabel.danger = hex;
+    if (/warning|orange/.test(label)) byLabel.warning = hex;
+    if (/announcement|info|blue/.test(label)) byLabel.info = hex;
+  }
+
+  const uniq = [
+    ...new Set([...body.matchAll(/`(#([0-9A-Fa-f]{6}))`/g)].map((m) => normalizeHex(m[1])))
+  ];
+  return { byLabel, uniq };
+}
+
+/**
+ * Fallback mapper for prose-only awesome-design-md entries (e.g. spotify).
+ * @param {string} raw
+ * @param {string} slug
+ */
+function mapBrandDesignProse(raw, slug) {
+  const sourceBody = raw;
+  const { byLabel, uniq } = extractProseHexColors(raw);
+  const titleMatch = raw.match(/^#\s+Design System Inspired by\s+(.+?)\s*$/m);
+  const displayName = titleMatch ? titleMatch[1].trim() : brandDisplayName(slug, '');
+  const productName = `${displayName} Starter`;
+  const atmosphereSummary =
+    summarySentences(sourceBody.split('\n\n')[1] ?? '') ||
+    `${displayName} brand identity imported from awesome-design-md (prose source).`;
+
+  const primary =
+    byLabel.primary ??
+    uniq.find((h) => /1ED760|1DB954|533AFD|635BFD|FF385C/i.test(h)) ??
+    uniq[0] ??
+    '#3B82F6';
+  const derived = deriveBrandColors(primary);
+  const hover = derived.hover;
+  const subtle = derived.subtle;
+
+  const canvas =
+    byLabel.canvas ?? uniq.find((h) => h.toUpperCase() === '#121212') ?? uniq.find(isDarkHex) ?? '#121212';
+  const paper =
+    byLabel.paper ??
+    uniq.find((h) => h.toUpperCase() === '#181818' || h.toUpperCase() === '#1F1F1F') ??
+    '#181818';
+  const sunken = canvas;
+
+  const textPrimary = byLabel.text ?? '#FFFFFF';
+  const textMuted = byLabel.muted ?? '#B3B3B3';
+  const textInverse = isDarkHex(textPrimary) ? '#FAFAF7' : canvas;
+
+  const typography = extractTypography({});
+  const { dos, donts } = extractDoDont(sourceBody, displayName);
+  const yamlTokens = extractBrandYamlTokens(raw, slug);
+
+  const keywords =
+    sourceBody
+      .toLowerCase()
+      .match(/\b(dark|immersive|minimal|pill|rounded|premium|content-first|monochrome)\b/g) ?? ['brand'];
+  const uniqueKeywords = [...new Set(keywords)];
+
+  const mapped = {
+    slug,
+    displayName,
+    productName,
+    atmosphereSummary,
+    colors: {
+      brand: { primary, hover, subtle },
+      neutral: { ...DEFAULT_NEUTRALS },
+      surface: { canvas, paper, sunken },
+      text: {
+        primary: textPrimary,
+        secondary: textPrimary,
+        muted: textMuted,
+        inverse: textInverse
+      },
+      feedback: {
+        success: primary,
+        warning: byLabel.warning ?? '#C8861B',
+        danger: byLabel.danger ?? '#EA2143',
+        info: byLabel.info ?? '#2E6CB8'
+      }
+    },
+    typography,
+    atmosphere: {
+      keywords: uniqueKeywords.slice(0, 6),
+      inspiration: [displayName],
+      information_density: 'low-to-medium',
+      whitespace_bias: 'generous'
+    },
+    dos,
+    donts,
+    loginSpecRgb: hexToRgbString(primary),
+    layout: yamlTokens.layout,
+    elevation: {
+      flat: yamlTokens.elevation.flat,
+      raised: yamlTokens.elevation.raised,
+      high: yamlTokens.elevation.high,
+      modal: yamlTokens.elevation.modal
+    }
+  };
+
+  return {
+    mapped,
+    designMd: buildDesignMd(mapped),
+    colorJson: buildColorJson(mapped),
+    typographyJson: buildTypographyJson(mapped),
+    spacingJson: yamlTokens.spacing.spacingJson,
+    elevationJson: yamlTokens.elevation.elevationJson
+  };
+}
+
 /**
  * @param {string} raw
  * @param {string} slug
  */
 export function mapBrandDesign(raw, slug) {
   const { yaml, body: sourceBody } = splitFrontmatter(raw);
-  if (!yaml) throw new Error('Source DESIGN.md has no YAML frontmatter.');
+  if (!yaml) return mapBrandDesignProse(raw, slug);
 
   const data = parseYaml(yaml);
   const srcColors = getColorMap(data);
@@ -185,7 +321,10 @@ export function mapBrandDesign(raw, slug) {
   const subtle = derived.subtle;
 
   const canvas = pickColor(srcColors, ['canvas', 'canvas-soft'], '#FAFAF7');
-  const paper = pickColor(srcColors, ['surface-card', 'surface', 'paper'], '#FFFFFF');
+  let paper = pickColor(srcColors, ['surface-card', 'surface-1', 'surface-2', 'surface-3', 'surface', 'paper'], '#FFFFFF');
+  if (isDarkHex(canvas) && !isDarkHex(paper)) {
+    paper = pickColor(srcColors, ['surface-1', 'surface-2', 'surface-3', 'surface-4'], '#0F1011');
+  }
   const sunken = pickColor(srcColors, ['surface-soft', 'surface-strong', 'hairline-soft'], canvas);
 
   const textPrimary = pickColor(srcColors, ['ink', 'charcoal', 'ink-deep', 'body-strong'], '#171715');
@@ -206,6 +345,7 @@ export function mapBrandDesign(raw, slug) {
 
   const typography = extractTypography(typoRoles);
   const { dos, donts } = extractDoDont(sourceBody, displayName);
+  const yamlTokens = extractBrandYamlTokens(raw, slug);
 
   const keywords = description
     .toLowerCase()
@@ -233,14 +373,23 @@ export function mapBrandDesign(raw, slug) {
     },
     dos,
     donts,
-    loginSpecRgb: hexToRgbString(primary)
+    loginSpecRgb: hexToRgbString(primary),
+    layout: yamlTokens.layout,
+    elevation: {
+      flat: yamlTokens.elevation.flat,
+      raised: yamlTokens.elevation.raised,
+      high: yamlTokens.elevation.high,
+      modal: yamlTokens.elevation.modal
+    }
   };
 
   return {
     mapped,
     designMd: buildDesignMd(mapped),
     colorJson: buildColorJson(mapped),
-    typographyJson: buildTypographyJson(mapped)
+    typographyJson: buildTypographyJson(mapped),
+    spacingJson: yamlTokens.spacing.spacingJson,
+    elevationJson: yamlTokens.elevation.elevationJson
   };
 }
 
@@ -316,7 +465,7 @@ typography:
     normal: 1.50
     loose:  1.75
   letter_spacing:
-    display: "-0.02em"
+    display: "${m.typography.letter_spacing_display ?? '-0.02em'}"
     body:    "0"
 
 components:
@@ -335,17 +484,17 @@ components:
     height_px:  64
 
 layout:
-  spacing_base_px: 4
-  spacing_scale_px: [0, 4, 8, 12, 16, 24, 32, 48, 64, 96, 128]
-  container_max_px: 1280
-  grid_columns: 12
-  grid_gutter_px: 24
+  spacing_base_px: ${m.layout?.spacing_base_px ?? 4}
+  spacing_scale_px: ${JSON.stringify(m.layout?.spacing_scale_px ?? [0, 4, 8, 12, 16, 24, 32, 48, 64, 96, 128])}
+  container_max_px: ${m.layout?.container_max_px ?? 1280}
+  grid_columns: ${m.layout?.grid_columns ?? 12}
+  grid_gutter_px: ${m.layout?.grid_gutter_px ?? 24}
 
 elevation:
-  flat:   "0 0 0 1px rgba(23,23,21,0.06)"
-  raised: "0 1px 2px rgba(23,23,21,0.06), 0 1px 3px rgba(23,23,21,0.10)"
-  high:   "0 12px 32px -8px rgba(23,23,21,0.18)"
-  modal:  "0 32px 64px -16px rgba(23,23,21,0.28)"
+  flat:   "${m.elevation?.flat ?? '0 0 0 1px rgba(23,23,21,0.06)'}"
+  raised: "${m.elevation?.raised ?? '0 1px 2px rgba(23,23,21,0.06), 0 1px 3px rgba(23,23,21,0.10)'}"
+  high:   "${m.elevation?.high ?? '0 12px 32px -8px rgba(23,23,21,0.18)'}"
+  modal:  "${m.elevation?.modal ?? '0 32px 64px -16px rgba(23,23,21,0.28)'}"
 
 responsive:
   breakpoints_px:
@@ -547,7 +696,7 @@ function buildTypographyJson(m) {
         loose: { value: '1.75', type: 'number' }
       },
       'letter-spacing': {
-        display: { value: '-0.02em', type: 'dimension' },
+        display: { value: m.typography.letter_spacing_display ?? '-0.02em', type: 'dimension' },
         body: { value: '0', type: 'dimension' }
       }
     }

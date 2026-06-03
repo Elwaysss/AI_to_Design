@@ -1,0 +1,174 @@
+{
+  "version": "1.0.0",
+  "updatedAt": "2026-06-03",
+  "aesthetic": [
+    {
+      "id": "glassmorphism",
+      "slug": "glassmorphism",
+      "nameZh": "玻璃拟态",
+      "summaryZh": "磨砂玻璃、半透明层次与 luminous 边框，现代科技感",
+      "source": "typeui",
+      "visualStyle": ["glassmorphism", "modern", "clean"]
+    },
+    {
+      "id": "minimal",
+      "slug": "minimal",
+      "nameZh": "极简",
+      "summaryZh": "大量留白、克制配色，信息层次靠排版而非装饰",
+      "source": "typeui",
+      "visualStyle": ["minimal", "clean"]
+    },
+    {
+      "id": "neobrutalism",
+      "slug": "neobrutalism",
+      "nameZh": "新粗野",
+      "summaryZh": "粗边框、高对比、略叛逆的排版，适合年轻 SaaS",
+      "source": "typeui",
+      "visualStyle": ["neobrutalism", "bold"]
+    },
+    {
+      "id": "futuristic",
+      "slug": "futuristic",
+      "nameZh": "未来科技",
+      "summaryZh": "深色底、霓虹点缀，适合 AI / 开发者工具",
+      "source": "typeui",
+      "visualStyle": ["futuristic", "dark"]
+    },
+    {
+      "id": "corporate",
+      "slug": "corporate",
+      "nameZh": "企业风",
+      "summaryZh": "稳重可信、结构清晰，面向 B2B 与合规场景",
+      "source": "typeui",
+      "visualStyle": ["corporate", "professional"]
+    },
+    {
+      "id": "elegant",
+      "slug": "elegant",
+      "nameZh": "优雅",
+      "summaryZh": "精致字体与柔和色板，偏奢侈品与高端服务气质",
+      "source": "typeui",
+      "visualStyle": ["elegant", "minimal"]
+    },
+    {
+      "id": "neon",
+      "slug": "neon",
+      "nameZh": "霓虹赛博",
+      "summaryZh": "高饱和荧光色、暗色背景，赛博朋克氛围",
+      "source": "typeui",
+      "visualStyle": ["neon", "cyberpunk", "dark"]
+    },
+    {
+      "id": "clean",
+      "slug": "clean",
+      "nameZh": "干净清爽",
+      "summaryZh": "明亮界面、清晰分区，上手零学习成本",
+      "source": "typeui",
+      "visualStyle": ["clean", "light"]
+    },
+    {
+      "id": "material",
+      "slug": "material",
+      "nameZh": "Material",
+      "summaryZh": "Google Material 式 elevation 与动效语言",
+      "source": "typeui",
+      "visualStyle": ["material", "modern"]
+    },
+    {
+      "id": "neumorphism",
+      "slug": "neumorphism",
+      "nameZh": "新拟态",
+      "summaryZh": "柔和内外阴影，控件像从背景中浮起",
+      "source": "typeui",
+      "visualStyle": ["neumorphism", "soft"]
+    },
+    {
+      "id": "editorial",
+      "slug": "editorial",
+      "nameZh": "编辑风",
+      "summaryZh": "杂志式排版与大标题，适合内容与媒体产品",
+      "source": "typeui",
+      "visualStyle": ["editorial", "typography"]
+    },
+    {
+      "id": "luxury",
+      "slug": "luxury",
+      "nameZh": "奢华",
+      "summaryZh": "深色或米金配色、宽间距，强调品质感",
+      "source": "typeui",
+      "visualStyle": ["luxury", "premium"]
+    },
+    {
+      "id": "professional",
+      "slug": "professional",
+      "nameZh": "专业",
+      "summaryZh": "中性色为主、强调可读性，通用 SaaS 默认之选",
+      "source": "typeui",
+      "visualStyle": ["professional", "neutral"]
+    },
+    {
+      "id": "gradient",
+      "slug": "gradient",
+      "nameZh": "渐变",
+      "summaryZh": "大胆渐变背景与卡片，适合营销与创意工具",
+      "source": "typeui",
+      "visualStyle": ["gradient", "colorful"]
+    },
+    {
+      "id": "cosmic",
+      "slug": "cosmic",
+      "nameZh": "宇宙深空",
+      "summaryZh": "深紫蓝渐变与星点质感，沉浸式仪表盘",
+      "source": "typeui",
+      "visualStyle": ["cosmic", "dark", "immersive"]
+    },
+    {
+      "id": "shadcn",
+      "slug": "shadcn",
+      "nameZh": "Shadcn 风",
+      "summaryZh": "开发者熟悉的组件质感，黑白灰 + 单一强调色",
+      "source": "typeui",
+      "visualStyle": ["shadcn", "developer"]
+    },
+    {
+      "id": "brutalism",
+      "slug": "brutalism",
+      "nameZh": "粗野主义",
+      "summaryZh": "原始 HTML 感、系统字体、反精致美学",
+      "source": "typeui",
+      "visualStyle": ["brutalism", "raw"]
+    },
+    {
+      "id": "friendly",
+      "slug": "friendly",
+      "nameZh": "友好亲和",
+      "summaryZh": "圆角、暖色与插画友好布局，面向消费者",
+      "source": "typeui",
+      "visualStyle": ["friendly", "warm"]
+    }
+  ],
+  "brand": [
+    { "id": "notion", "slug": "notion", "nameZh": "Notion", "summaryZh": " calm 极简、黑白为主、编辑体验优先" },
+    { "id": "linear", "slug": "linear", "nameZh": "Linear", "summaryZh": "单色精密、开发者工具气质（数据源 linear.app）" },
+    { "id": "stripe", "slug": "stripe", "nameZh": "Stripe", "summaryZh": "渐变紫、金融科技专业感" },
+    { "id": "figma", "slug": "figma", "nameZh": "Figma", "summaryZh": "多彩点缀、协作与设计工具感" },
+    { "id": "spotify", "slug": "spotify", "nameZh": "Spotify", "summaryZh": "深色底 + 品牌绿，媒体消费场景" },
+    { "id": "airbnb", "slug": "airbnb", "nameZh": "Airbnb", "summaryZh": "珊瑚红主色、旅行与信任感" },
+    { "id": "slack", "slug": "slack", "nameZh": "Slack", "summaryZh": "紫色系、团队沟通与工作区" },
+    { "id": "github", "slug": "github", "nameZh": "GitHub", "summaryZh": "开发者工具气质（近似 Raycast 色板）" },
+    { "id": "vercel", "slug": "vercel", "nameZh": "Vercel", "summaryZh": "黑白极简、前端部署平台" },
+    { "id": "discord", "slug": "discord", "nameZh": "Discord", "summaryZh": "社区紫、实时沟通（近似 Slack 色板）" },
+    { "id": "shopify", "slug": "shopify", "nameZh": "Shopify", "summaryZh": "电商绿、商家后台气质" },
+    { "id": "dropbox", "slug": "dropbox", "nameZh": "Dropbox", "summaryZh": "云存储清爽蓝（近似 Airtable 色板）" },
+    { "id": "asana", "slug": "asana", "nameZh": "Asana", "summaryZh": "项目管理、流程自动化（近似 Zapier 色板）" },
+    { "id": "monday", "slug": "monday", "nameZh": "Monday", "summaryZh": "多彩看板、工作 OS（近似 Miro 色板）" },
+    { "id": "intercom", "slug": "intercom", "nameZh": "Intercom", "summaryZh": "客服蓝、对话与支持产品" },
+    { "id": "cursor", "slug": "cursor", "nameZh": "Cursor", "summaryZh": "AI 编辑器、深色专业界面" },
+    { "id": "apple", "slug": "apple", "nameZh": "Apple", "summaryZh": "SF 体系、精致留白与系统感" },
+    { "id": "google", "slug": "google", "nameZh": "Google", "summaryZh": "Material 四色、Workspace（近似 Meta 色板）" },
+    { "id": "miro", "slug": "miro", "nameZh": "Miro", "summaryZh": "协作白板、多彩 sticky 与网格" },
+    { "id": "airtable", "slug": "airtable", "nameZh": "Airtable", "summaryZh": "表格数据库、清爽 productivity 界面" },
+    { "id": "raycast", "slug": "raycast", "nameZh": "Raycast", "summaryZh": "macOS 开发者启动器、深色精致 UI" },
+    { "id": "supabase", "slug": "supabase", "nameZh": "Supabase", "summaryZh": "开发者后端、PostgreSQL 绿黑配色" }
+  ]
+}

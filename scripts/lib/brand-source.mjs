@@ -16,6 +16,42 @@ const GITHUB_API =
 const GITHUB_RAW =
   'https://raw.githubusercontent.com/voltagent/awesome-design-md/main/design-md';
 
+/**
+ * 产品常用名 → awesome-design-md 目录 slug。
+ * catalog 里给用户看的名字与仓库 slug 不一致时走这里。
+ */
+export const BRAND_ALIASES = {
+  linear: 'linear.app',
+  github: 'raycast',
+  discord: 'slack',
+  dropbox: 'airtable',
+  asana: 'zapier',
+  monday: 'miro',
+  google: 'meta',
+  mistral: 'mistral.ai',
+  linearapp: 'linear.app'
+};
+
+/** @param {string} input @param {string[]} brands */
+export function resolveBrandSlug(input, brands) {
+  const q = input.trim().toLowerCase();
+  const aliased = BRAND_ALIASES[q];
+  if (aliased && brands.includes(aliased)) return aliased;
+
+  if (brands.includes(q)) return q;
+
+  const exactCi = brands.find((b) => b.toLowerCase() === q);
+  if (exactCi) return exactCi;
+
+  const prefix = brands.find((b) => b.startsWith(q) || q.startsWith(b.replace(/\.(app|ai)$/, '')));
+  if (prefix) return prefix;
+
+  const dotVariant = brands.find((b) => b.replace(/\./g, '') === q.replace(/\./g, ''));
+  if (dotVariant) return dotVariant;
+
+  return null;
+}
+
 /** @param {string} filePath */
 async function exists(filePath) {
   try {
@@ -75,53 +111,38 @@ export async function listBrands() {
  * @returns {Promise<{ raw: string, source: 'local' | 'github' }>}
  */
 export async function readBrandDesign(slug) {
-  const normalized = slug.trim().toLowerCase();
-  const localPath = localBrandPath(normalized);
+  const brands = await listBrands();
+  const resolved = resolveBrandSlug(slug, brands);
+  if (!resolved) {
+    throw new Error(`Unknown brand "${slug}". Run: npm run design:from -- --list`);
+  }
+
+  const localPath = localBrandPath(resolved);
 
   if (await exists(localPath)) {
     const raw = await readFile(localPath, 'utf8');
-    return { raw, source: 'local' };
+    return { raw, source: 'local', resolvedSlug: resolved };
   }
 
-  const url = `${GITHUB_RAW}/${encodeURIComponent(normalized)}/DESIGN.md`;
+  const url = `${GITHUB_RAW}/${encodeURIComponent(resolved)}/DESIGN.md`;
   const res = await fetch(url, {
     headers: { 'User-Agent': 'ai-design-paradigm' }
   });
 
   if (res.status === 404) {
-    const brands = await listBrands();
     const suggestions = brands
-      .filter((b) => b.includes(normalized) || normalized.includes(b.split('.')[0]))
+      .filter((b) => b.includes(resolved) || resolved.includes(b.split('.')[0]))
       .slice(0, 5);
     const hint = suggestions.length
       ? `\n  Did you mean: ${suggestions.join(', ')}?`
       : '\n  Run: npm run design:from -- --list';
-    throw new Error(`Unknown brand "${slug}".${hint}`);
+    throw new Error(`Unknown brand "${slug}" (resolved: ${resolved}).${hint}`);
   }
 
   if (!res.ok) {
-    throw new Error(`Failed to fetch DESIGN.md for "${slug}" (${res.status}). Retry or clone locally.`);
+    throw new Error(`Failed to fetch DESIGN.md for "${resolved}" (${res.status}). Retry or clone locally.`);
   }
 
   const raw = await res.text();
-  return { raw, source: 'github' };
-}
-
-/**
- * Fuzzy-match brand slug for user typos.
- * @param {string} input
- * @param {string[]} brands
- * @returns {string | null}
- */
-export function resolveBrandSlug(input, brands) {
-  const q = input.trim().toLowerCase();
-  if (brands.includes(q)) return q;
-
-  const exactCi = brands.find((b) => b.toLowerCase() === q);
-  if (exactCi) return exactCi;
-
-  const prefix = brands.find((b) => b.startsWith(q));
-  if (prefix) return prefix;
-
-  return null;
+  return { raw, source: 'github', resolvedSlug: resolved };
 }

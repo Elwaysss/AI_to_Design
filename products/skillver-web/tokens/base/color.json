@@ -1,0 +1,41 @@
+{
+  "color": {
+    "base": {
+      "cobalt": {
+        "300": { "value": "#8E83E2", "type": "color", "comment": "work-light brand subtle" },
+        "500": { "value": "#5645D4", "type": "color", "comment": "work-light brand primary (Notion-adjacent)" },
+        "700": { "value": "#4534B3", "type": "color", "comment": "work-light brand hover" }
+      },
+      "violet": {
+        "300": { "value": "#C4B5FD", "type": "color", "comment": "ai-dark brand subtle" },
+        "500": { "value": "#8B5CF6", "type": "color", "comment": "ai-dark brand primary" },
+        "700": { "value": "#7C3AED", "type": "color", "comment": "ai-dark brand hover" }
+      },
+      "ink": {
+        "50":  { "value": "#FAFAF7", "type": "color" },
+        "100": { "value": "#F1F1EB", "type": "color" },
+        "200": { "value": "#E5E3DF", "type": "color" },
+        "300": { "value": "#C9C9BE", "type": "color" },
+        "500": { "value": "#7A7A6F", "type": "color" },
+        "700": { "value": "#3C3C36", "type": "color" },
+        "900": { "value": "#171715", "type": "color" }
+      },
+      "night": {
+        "50":  { "value": "#0B0F19", "type": "color" },
+        "100": { "value": "#0F1420", "type": "color" },
+        "200": { "value": "#151B28", "type": "color" },
+        "300": { "value": "#1E293B", "type": "color" },
+        "500": { "value": "#64748B", "type": "color" },
+        "700": { "value": "#CBD5E1", "type": "color" },
+        "900": { "value": "#F1F5F9", "type": "color" }
+      },
+      "moss":  { "value": "#1AAE39", "type": "color" },
+      "amber": { "value": "#DD5B00", "type": "color" },
+      "lake":  { "value": "#0075DE", "type": "color" },
+      "neo": {
+        "yellow": { "value": "#FDC800", "type": "color" },
+        "ink":    { "value": "#1C293C", "type": "color" }
+      }
+    }
+  }
+}

@@ -1,0 +1,235 @@
+@import "tailwindcss";
+
+/* Glassmorphism Pro — awesome-design-skills/glassmorphism + V2.1 */
+:root {
+  --color-primary: #1856ff;
+  --color-primary-hover: #1243c9;
+  --color-primary-subtle: rgba(24, 86, 255, 0.35);
+  --color-surface: rgba(255, 255, 255, 0.1);
+  --color-background: #0c1222;
+  --color-status-success: #07ca6b;
+  --color-status-warning: #e89558;
+  --color-status-orange: #f97316;
+  --color-status-error: #ea2143;
+  --color-status-lock: #b91c1c;
+  --color-status-neutral: #94a3b8;
+
+  --glass-blur: 24px;
+  --glass-blur-strong: 32px;
+  --glass-saturate: 180%;
+  --glass-border: rgba(255, 255, 255, 0.22);
+  --glass-border-bright: rgba(255, 255, 255, 0.45);
+  --glass-fill: rgba(255, 255, 255, 0.1);
+  --glass-fill-strong: rgba(255, 255, 255, 0.16);
+  --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.28);
+  --glass-shadow-lg: 0 16px 48px rgba(0, 0, 0, 0.35);
+  --glass-glow: 0 0 24px rgba(24, 86, 255, 0.25);
+  --radius-card: 20px;
+  --radius-button: 12px;
+}
+
+@theme {
+  --color-primary: var(--color-primary);
+  --color-surface: var(--color-surface);
+  --color-background: var(--color-background);
+  --color-status-success: var(--color-status-success);
+  --color-status-warning: var(--color-status-warning);
+  --color-status-orange: var(--color-status-orange);
+  --color-status-error: var(--color-status-error);
+  --color-status-lock: var(--color-status-lock);
+  --color-status-neutral: var(--color-status-neutral);
+  --spacing-sidebar-talent: 288px;
+  --spacing-sidebar-enterprise: 240px;
+}
+
+html,
+body {
+  min-height: 100vh;
+  color: #e2e8f0;
+  font-family: "Plus Jakarta Sans", Inter, "PingFang SC", "Microsoft YaHei", system-ui, sans-serif;
+  font-size: 0.875rem;
+  line-height: 1.2;
+  background-color: var(--color-background);
+  background-image:
+    radial-gradient(ellipse 80% 60% at 10% 15%, rgba(24, 86, 255, 0.55), transparent 55%),
+    radial-gradient(ellipse 70% 50% at 90% 10%, rgba(14, 165, 233, 0.4), transparent 50%),
+    radial-gradient(ellipse 60% 55% at 75% 85%, rgba(99, 102, 241, 0.45), transparent 52%),
+    radial-gradient(ellipse 50% 40% at 20% 80%, rgba(236, 72, 153, 0.2), transparent 45%),
+    linear-gradient(155deg, #0a0f1a 0%, #121a2e 45%, #1a1040 100%);
+  background-attachment: fixed;
+}
+
+#app {
+  min-height: 100vh;
+}
+
+/* Page canvas */
+.glass-bg,
+.neo-bg {
+  min-height: 100vh;
+  color: #e2e8f0;
+}
+
+/* Pro glass surfaces */
+.glass-panel,
+.neo-raised,
+.sv-card {
+  background: var(--glass-fill);
+  backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate));
+  -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate));
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-card);
+  box-shadow: var(--glass-shadow), inset 0 1px 0 var(--glass-border-bright);
+}
+
+.glass-panel-strong,
+.neo-raised-sm {
+  background: var(--glass-fill-strong);
+  backdrop-filter: blur(var(--glass-blur-strong)) saturate(var(--glass-saturate));
+  -webkit-backdrop-filter: blur(var(--glass-blur-strong)) saturate(var(--glass-saturate));
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-button);
+  box-shadow: var(--glass-shadow), inset 0 1px 0 var(--glass-border-bright);
+}
+
+.glass-input,
+.neo-inset {
+  background: rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(12px) saturate(150%);
+  -webkit-backdrop-filter: blur(12px) saturate(150%);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: var(--radius-button);
+  color: #f1f5f9;
+  box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.glass-input::placeholder {
+  color: #94a3b8;
+}
+
+.neo-inset-sm {
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.sv-h1 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  line-height: 1.2;
+  color: #f8fafc;
+  text-shadow: 0 0 20px rgba(24, 86, 255, 0.35);
+}
+
+.sv-h2 {
+  font-size: 0.9375rem;
+  font-weight: 600;
+  line-height: 1.2;
+  border-left: 4px solid var(--color-primary);
+  padding-left: 8px;
+  color: #f1f5f9;
+}
+
+.sv-h3 {
+  font-size: 0.75rem;
+  line-height: 1.2;
+  color: #94a3b8;
+}
+
+.sv-btn {
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-button);
+  min-height: 40px;
+  padding: 0 1rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  line-height: 1.2;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.sv-btn-primary {
+  background: linear-gradient(135deg, #1856ff 0%, #3b82f6 100%);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  color: #fff;
+  box-shadow: var(--glass-glow), var(--glass-shadow);
+}
+
+.sv-btn-primary:hover:not(:disabled) {
+  background: linear-gradient(135deg, var(--color-primary-hover) 0%, #2563eb 100%);
+  transform: translateY(-1px);
+}
+
+.sv-btn-primary:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.sv-btn-primary:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.neo-btn-flat,
+.glass-btn-ghost {
+  background: var(--glass-fill);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  color: #e2e8f0;
+  border: 1px solid var(--glass-border);
+}
+
+.glass-nav-active,
+.neo-nav-active {
+  background: rgba(24, 86, 255, 0.25);
+  border: 1px solid rgba(24, 86, 255, 0.45);
+  color: #93c5fd;
+  font-weight: 600;
+  box-shadow: var(--glass-glow);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+}
+
+.glass-nav-item:hover,
+.neo-nav-item:hover {
+  background: var(--glass-fill-strong);
+  border: 1px solid var(--glass-border);
+}
+
+.sv-pulse-orange {
+  animation: sv-pulse 2s ease-in-out infinite;
+  box-shadow: 0 0 12px var(--color-status-orange);
+}
+
+@keyframes sv-pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.35;
+  }
+}
+
+:focus-visible {
+  outline: 2px solid #60a5fa;
+  outline-offset: 3px;
+}
+
+/* Dark glass: remap legacy gray utilities inside app */
+#app .text-gray-500,
+#app .text-gray-600 {
+  color: #94a3b8;
+}
+#app .text-gray-700,
+#app .text-gray-800 {
+  color: #cbd5e1;
+}
+#app .border-gray-100,
+#app .border-gray-200,
+#app .border-gray-300 {
+  border-color: rgba(255, 255, 255, 0.12);
+}
+#app .bg-background {
+  background: transparent;
+}
+#app .bg-surface {
+  background: var(--glass-fill);
+}

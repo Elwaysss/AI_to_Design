@@ -1,0 +1,578 @@
+{
+  "version": "1.0.0",
+  "updatedAt": "2026-06-03",
+  "brands": {
+    "notion": {
+      "golden": true,
+      "nameZh": "Notion",
+      "pageRecipe": "notion-marketing",
+      "productRecipe": "notion-app",
+      "aesthetic_signature": {
+        "hero": "navy-hero",
+        "density": "sparse",
+        "typography": "medium-display + pastel-tint-cards + hairline",
+        "cta_policy": "one-primary-per-view"
+      },
+      "composition": {
+        "max_primary_cta": 1,
+        "max_stat_cards": 3,
+        "display_weight_min": 500,
+        "display_weight_max": 700,
+        "requires_tabular": false,
+        "button_pill": false
+      },
+      "anti_patterns": [
+        "no-heavy-gradient-hero",
+        "no-uppercase-display",
+        "no-rainbow-accents"
+      ],
+      "golden_markers": ["navy-hero-band", "pastel-tint-cards", "hairline-borders"]
+    },
+    "stripe": {
+      "golden": true,
+      "nameZh": "Stripe",
+      "pageRecipe": "stripe-marketing",
+      "productRecipe": "stripe-app",
+      "aesthetic_signature": {
+        "hero": "gradient-mesh",
+        "density": "balanced",
+        "typography": "thin-display-300 + tabular-numerics + ss01",
+        "cta_policy": "one-indigo-pill-per-band"
+      },
+      "composition": {
+        "max_primary_cta": 1,
+        "max_stat_cards": 3,
+        "display_weight_min": 300,
+        "display_weight_max": 400,
+        "requires_tabular": true,
+        "button_pill": true
+      },
+      "anti_patterns": [
+        "no-display-weight-above-400",
+        "no-bare-canvas-hero",
+        "no-money-without-tnum"
+      ],
+      "golden_markers": ["gradient-mesh-hero", "cream-feature-card", "indigo-pill-cta"]
+    },
+    "linear": {
+      "golden": true,
+      "nameZh": "Linear",
+      "pageRecipe": "linear-marketing",
+      "productRecipe": "linear-app",
+      "aesthetic_signature": {
+        "hero": "dark-dev",
+        "density": "compact",
+        "typography": "precise-display + mono-metadata + charcoal-panels",
+        "cta_policy": "lavender-accent-sparingly"
+      },
+      "composition": {
+        "max_primary_cta": 1,
+        "max_stat_cards": 3,
+        "display_weight_min": 500,
+        "display_weight_max": 700,
+        "requires_tabular": false,
+        "button_pill": false
+      },
+      "anti_patterns": [
+        "no-atmospheric-gradient",
+        "no-pastel-marketing-cards",
+        "no-pill-buttons"
+      ],
+      "golden_markers": ["near-black-canvas", "charcoal-panels", "product-screenshot-frame"]
+    },
+    "slack": {
+      "golden": true,
+      "nameZh": "Slack",
+      "pageRecipe": "slack-marketing",
+      "productRecipe": "slack-app",
+      "aesthetic_signature": {
+        "hero": "aubergine-soft",
+        "density": "comfortable",
+        "typography": "bold-display + lavender-secondary-pill",
+        "cta_policy": "aubergine-primary-pill"
+      },
+      "composition": {
+        "max_primary_cta": 1,
+        "max_stat_cards": 3,
+        "display_weight_min": 600,
+        "display_weight_max": 800,
+        "requires_tabular": false,
+        "button_pill": true
+      },
+      "anti_patterns": [
+        "no-sharp-rect-buttons",
+        "no-dark-immersive-canvas",
+        "no-minimal-hairline-only"
+      ],
+      "golden_markers": ["lavender-hero-wash", "90px-pill-cta", "aubergine-primary"]
+    },
+    "spotify": {
+      "golden": true,
+      "nameZh": "Spotify",
+      "pageRecipe": "spotify-marketing",
+      "productRecipe": "spotify-app",
+      "aesthetic_signature": {
+        "hero": "immersive-dark",
+        "density": "balanced",
+        "typography": "bold-display + uppercase-pill-cta",
+        "cta_policy": "green-pill-on-black"
+      },
+      "composition": {
+        "max_primary_cta": 1,
+        "max_stat_cards": 3,
+        "display_weight_min": 700,
+        "display_weight_max": 900,
+        "requires_tabular": false,
+        "button_pill": true
+      },
+      "anti_patterns": [
+        "no-light-canvas",
+        "no-thin-display",
+        "no-rectangular-cta"
+      ],
+      "golden_markers": ["near-black-canvas", "brand-green-pill", "elevated-dark-cards"]
+    },
+    "figma": {
+      "golden": true,
+      "nameZh": "Figma",
+      "pageRecipe": "figma-marketing",
+      "productRecipe": "figma-app",
+      "aesthetic_signature": {
+        "hero": "light-clean",
+        "density": "balanced",
+        "typography": "rounded-display + pill-cta + design-tool-clarity",
+        "cta_policy": "black-pill-on-white"
+      },
+      "composition": {
+        "max_primary_cta": 1,
+        "max_stat_cards": 3,
+        "display_weight_min": 300,
+        "display_weight_max": 500,
+        "requires_tabular": false,
+        "button_pill": true
+      },
+      "anti_patterns": [
+        "no-dark-immersive-canvas",
+        "no-brutalist-borders",
+        "no-heavy-marketing-gradient"
+      ],
+      "golden_markers": ["white-canvas", "pill-cta", "multicolor-accents"]
+    },
+    "airbnb": {
+      "golden": true,
+      "nameZh": "Airbnb",
+      "pageRecipe": "airbnb-marketing",
+      "productRecipe": "airbnb-app",
+      "aesthetic_signature": {
+        "hero": "light-clean",
+        "density": "comfortable",
+        "typography": "medium-display + coral-accent + trust-forward",
+        "cta_policy": "coral-primary-rect"
+      },
+      "composition": {
+        "max_primary_cta": 1,
+        "max_stat_cards": 3,
+        "display_weight_min": 400,
+        "display_weight_max": 600,
+        "requires_tabular": false,
+        "button_pill": false
+      },
+      "anti_patterns": [
+        "no-dark-dev-canvas",
+        "no-neon-accents",
+        "no-multicolor-board"
+      ],
+      "golden_markers": ["coral-primary", "white-canvas", "trust-cards"]
+    },
+    "github": {
+      "golden": true,
+      "nameZh": "GitHub",
+      "pageRecipe": "github-marketing",
+      "productRecipe": "github-app",
+      "aesthetic_signature": {
+        "hero": "dark-dev",
+        "density": "compact",
+        "typography": "developer-display + mono-metadata + near-black-canvas",
+        "cta_policy": "high-contrast-on-dark"
+      },
+      "composition": {
+        "max_primary_cta": 1,
+        "max_stat_cards": 3,
+        "display_weight_min": 400,
+        "display_weight_max": 600,
+        "requires_tabular": false,
+        "button_pill": false
+      },
+      "anti_patterns": [
+        "no-pastel-marketing-cards",
+        "no-gradient-mesh-hero",
+        "no-pill-buttons"
+      ],
+      "golden_markers": ["near-black-canvas", "charcoal-panels", "developer-tool-frame"]
+    },
+    "vercel": {
+      "golden": true,
+      "nameZh": "Vercel",
+      "pageRecipe": "vercel-marketing",
+      "productRecipe": "vercel-app",
+      "aesthetic_signature": {
+        "hero": "light-clean",
+        "density": "sparse",
+        "typography": "geometric-display + monochrome + pill-cta",
+        "cta_policy": "black-pill-on-white"
+      },
+      "composition": {
+        "max_primary_cta": 1,
+        "max_stat_cards": 3,
+        "display_weight_min": 500,
+        "display_weight_max": 700,
+        "requires_tabular": false,
+        "button_pill": true
+      },
+      "anti_patterns": [
+        "no-rainbow-accents",
+        "no-pastel-cards",
+        "no-heavy-shadows"
+      ],
+      "golden_markers": ["monochrome-canvas", "pill-cta", "deployment-metrics"]
+    },
+    "discord": {
+      "golden": true,
+      "nameZh": "Discord",
+      "pageRecipe": "discord-marketing",
+      "productRecipe": "discord-app",
+      "aesthetic_signature": {
+        "hero": "aubergine-soft",
+        "density": "comfortable",
+        "typography": "bold-display + lavender-wash + community-cards",
+        "cta_policy": "aubergine-primary-pill"
+      },
+      "composition": {
+        "max_primary_cta": 1,
+        "max_stat_cards": 3,
+        "display_weight_min": 600,
+        "display_weight_max": 800,
+        "requires_tabular": false,
+        "button_pill": true
+      },
+      "anti_patterns": [
+        "no-dark-immersive-canvas",
+        "no-fintech-tabular",
+        "no-sharp-rect-only"
+      ],
+      "golden_markers": ["lavender-hero-wash", "aubergine-primary", "pill-cta"]
+    },
+    "shopify": {
+      "golden": true,
+      "nameZh": "Shopify",
+      "pageRecipe": "shopify-marketing",
+      "productRecipe": "shopify-app",
+      "aesthetic_signature": {
+        "hero": "light-clean",
+        "density": "balanced",
+        "typography": "merchant-display + commerce-green + admin-clarity",
+        "cta_policy": "near-black-pill-on-light"
+      },
+      "composition": {
+        "max_primary_cta": 1,
+        "max_stat_cards": 3,
+        "display_weight_min": 300,
+        "display_weight_max": 500,
+        "requires_tabular": false,
+        "button_pill": true
+      },
+      "anti_patterns": [
+        "no-dark-marketing-only",
+        "no-neon-accents",
+        "no-rainbow-board"
+      ],
+      "golden_markers": ["merchant-canvas", "pill-cta", "commerce-metrics"]
+    },
+    "dropbox": {
+      "golden": true,
+      "nameZh": "Dropbox",
+      "pageRecipe": "dropbox-marketing",
+      "productRecipe": "dropbox-app",
+      "aesthetic_signature": {
+        "hero": "light-clean",
+        "density": "comfortable",
+        "typography": "editorial-display + ink-type + signature-cards",
+        "cta_policy": "near-black-pill-on-white"
+      },
+      "composition": {
+        "max_primary_cta": 1,
+        "max_stat_cards": 3,
+        "display_weight_min": 400,
+        "display_weight_max": 500,
+        "requires_tabular": false,
+        "button_pill": false
+      },
+      "anti_patterns": [
+        "no-dark-dev-canvas",
+        "no-gradient-mesh",
+        "no-uppercase-display"
+      ],
+      "golden_markers": ["white-canvas", "editorial-cards", "ink-typography"]
+    },
+    "asana": {
+      "golden": true,
+      "nameZh": "Asana",
+      "pageRecipe": "asana-marketing",
+      "productRecipe": "asana-app",
+      "aesthetic_signature": {
+        "hero": "light-clean",
+        "density": "balanced",
+        "typography": "workflow-display + orange-cta + task-clarity",
+        "cta_policy": "orange-primary-rect"
+      },
+      "composition": {
+        "max_primary_cta": 1,
+        "max_stat_cards": 3,
+        "display_weight_min": 400,
+        "display_weight_max": 600,
+        "requires_tabular": false,
+        "button_pill": false
+      },
+      "anti_patterns": [
+        "no-dark-immersive",
+        "no-pill-only-buttons",
+        "no-multicolor-chaos"
+      ],
+      "golden_markers": ["warm-canvas", "orange-cta", "workflow-cards"]
+    },
+    "monday": {
+      "golden": true,
+      "nameZh": "Monday",
+      "pageRecipe": "monday-marketing",
+      "productRecipe": "monday-app",
+      "aesthetic_signature": {
+        "hero": "colorful",
+        "density": "balanced",
+        "typography": "bold-display + multicolor-board + work-os-energy",
+        "cta_policy": "dark-pill-on-white"
+      },
+      "composition": {
+        "max_primary_cta": 1,
+        "max_stat_cards": 3,
+        "display_weight_min": 400,
+        "display_weight_max": 600,
+        "requires_tabular": false,
+        "button_pill": true
+      },
+      "anti_patterns": [
+        "no-monochrome-only",
+        "no-dark-dev-canvas",
+        "no-hairline-minimal"
+      ],
+      "golden_markers": ["multicolor-accents", "pill-cta", "board-cards"]
+    },
+    "intercom": {
+      "golden": true,
+      "nameZh": "Intercom",
+      "pageRecipe": "intercom-marketing",
+      "productRecipe": "intercom-app",
+      "aesthetic_signature": {
+        "hero": "light-clean",
+        "density": "comfortable",
+        "typography": "support-display + messenger-blue + conversational",
+        "cta_policy": "dark-primary-rect"
+      },
+      "composition": {
+        "max_primary_cta": 1,
+        "max_stat_cards": 3,
+        "display_weight_min": 400,
+        "display_weight_max": 600,
+        "requires_tabular": false,
+        "button_pill": false
+      },
+      "anti_patterns": [
+        "no-dark-immersive",
+        "no-neon-cyber",
+        "no-brutalist-ui"
+      ],
+      "golden_markers": ["warm-canvas", "support-blue", "conversation-cards"]
+    },
+    "cursor": {
+      "golden": true,
+      "nameZh": "Cursor",
+      "pageRecipe": "cursor-marketing",
+      "productRecipe": "cursor-app",
+      "aesthetic_signature": {
+        "hero": "light-clean",
+        "density": "compact",
+        "typography": "editor-display + orange-accent + ai-tool-precision",
+        "cta_policy": "orange-accent-sparingly"
+      },
+      "composition": {
+        "max_primary_cta": 1,
+        "max_stat_cards": 3,
+        "display_weight_min": 400,
+        "display_weight_max": 500,
+        "requires_tabular": false,
+        "button_pill": false
+      },
+      "anti_patterns": [
+        "no-pastel-marketing",
+        "no-gradient-mesh",
+        "no-pill-everywhere"
+      ],
+      "golden_markers": ["editor-canvas", "orange-accent", "product-screenshot-frame"]
+    },
+    "apple": {
+      "golden": true,
+      "nameZh": "Apple",
+      "pageRecipe": "apple-marketing",
+      "productRecipe": "apple-app",
+      "aesthetic_signature": {
+        "hero": "light-clean",
+        "density": "sparse",
+        "typography": "system-display + generous-whitespace + sf-clarity",
+        "cta_policy": "blue-pill-on-white"
+      },
+      "composition": {
+        "max_primary_cta": 1,
+        "max_stat_cards": 3,
+        "display_weight_min": 500,
+        "display_weight_max": 700,
+        "requires_tabular": false,
+        "button_pill": true
+      },
+      "anti_patterns": [
+        "no-multicolor-board",
+        "no-heavy-borders",
+        "no-dark-dev-canvas"
+      ],
+      "golden_markers": ["white-canvas", "pill-cta", "system-minimal"]
+    },
+    "google": {
+      "golden": true,
+      "nameZh": "Google",
+      "pageRecipe": "google-marketing",
+      "productRecipe": "google-app",
+      "aesthetic_signature": {
+        "hero": "light-clean",
+        "density": "balanced",
+        "typography": "workspace-display + material-blue + product-grid",
+        "cta_policy": "blue-pill-on-white"
+      },
+      "composition": {
+        "max_primary_cta": 1,
+        "max_stat_cards": 3,
+        "display_weight_min": 400,
+        "display_weight_max": 600,
+        "requires_tabular": false,
+        "button_pill": true
+      },
+      "anti_patterns": [
+        "no-dark-immersive",
+        "no-brutalist",
+        "no-single-neon-accent"
+      ],
+      "golden_markers": ["white-canvas", "pill-cta", "workspace-cards"]
+    },
+    "miro": {
+      "golden": true,
+      "nameZh": "Miro",
+      "pageRecipe": "miro-marketing",
+      "productRecipe": "miro-app",
+      "aesthetic_signature": {
+        "hero": "colorful",
+        "density": "balanced",
+        "typography": "collab-display + sticky-colors + canvas-energy",
+        "cta_policy": "dark-pill-on-white"
+      },
+      "composition": {
+        "max_primary_cta": 1,
+        "max_stat_cards": 3,
+        "display_weight_min": 400,
+        "display_weight_max": 600,
+        "requires_tabular": false,
+        "button_pill": true
+      },
+      "anti_patterns": [
+        "no-monochrome-only",
+        "no-dark-dev-canvas",
+        "no-hairline-only"
+      ],
+      "golden_markers": ["multicolor-accents", "pill-cta", "sticky-board-cards"]
+    },
+    "airtable": {
+      "golden": true,
+      "nameZh": "Airtable",
+      "pageRecipe": "airtable-marketing",
+      "productRecipe": "airtable-app",
+      "aesthetic_signature": {
+        "hero": "light-clean",
+        "density": "comfortable",
+        "typography": "database-display + ink-type + signature-color-cards",
+        "cta_policy": "near-black-pill-on-white"
+      },
+      "composition": {
+        "max_primary_cta": 1,
+        "max_stat_cards": 3,
+        "display_weight_min": 400,
+        "display_weight_max": 500,
+        "requires_tabular": false,
+        "button_pill": false
+      },
+      "anti_patterns": [
+        "no-dark-dev-canvas",
+        "no-gradient-mesh",
+        "no-uppercase-display"
+      ],
+      "golden_markers": ["white-canvas", "editorial-cards", "database-grid"]
+    },
+    "raycast": {
+      "golden": true,
+      "nameZh": "Raycast",
+      "pageRecipe": "raycast-marketing",
+      "productRecipe": "raycast-app",
+      "aesthetic_signature": {
+        "hero": "dark-dev",
+        "density": "compact",
+        "typography": "macos-display + mono-metadata + charcoal-launcher",
+        "cta_policy": "white-on-dark-accent"
+      },
+      "composition": {
+        "max_primary_cta": 1,
+        "max_stat_cards": 3,
+        "display_weight_min": 400,
+        "display_weight_max": 600,
+        "requires_tabular": false,
+        "button_pill": false
+      },
+      "anti_patterns": [
+        "no-light-canvas",
+        "no-pastel-cards",
+        "no-pill-marketing"
+      ],
+      "golden_markers": ["near-black-canvas", "charcoal-panels", "launcher-frame"]
+    },
+    "supabase": {
+      "golden": true,
+      "nameZh": "Supabase",
+      "pageRecipe": "supabase-marketing",
+      "productRecipe": "supabase-app",
+      "aesthetic_signature": {
+        "hero": "light-clean",
+        "density": "balanced",
+        "typography": "developer-display + postgres-green + docs-clarity",
+        "cta_policy": "green-primary-rect"
+      },
+      "composition": {
+        "max_primary_cta": 1,
+        "max_stat_cards": 3,
+        "display_weight_min": 400,
+        "display_weight_max": 600,
+        "requires_tabular": false,
+        "button_pill": false
+      },
+      "anti_patterns": [
+        "no-immersive-black-only",
+        "no-pastel-marketing",
+        "no-fintech-mesh"
+      ],
+      "golden_markers": ["developer-canvas", "green-accent", "api-metrics"]
+    }
+  }
+}
