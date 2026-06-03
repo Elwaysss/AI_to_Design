@@ -8,7 +8,7 @@
 ## 1. 当前 main 状态
 
 ```
-af351a6  docs: update HANDOFF-PHASE3 main SHA  ← main HEAD
+ef82aa2  docs: normalize HANDOFF-PHASE3  ← run git log -1 for latest
 757976b  feat(phase3): vercel init, dynamic dev port, onboarding flow, phase4 docs
 0d2c591  feat(supabase): add npm run supabase:init and wire login auth
 9b9f0d5  Merge pull request #8 feat/design-from-brand-import

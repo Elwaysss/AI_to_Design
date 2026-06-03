@@ -1,11 +1,13 @@
 # MCP Server Setup (Cursor)
 
-This repo wires two MCP servers into Cursor via `.cursor/mcp.json`:
+This repo wires MCP servers into Cursor via `.cursor/mcp.json`:
 
 | Server | Purpose | Used by which course |
 |---|---|---|
-| `mermaid` | Validate & render Mermaid diagrams in-place (so LLM-generated state graphs are syntax-checked before commit) | 3 — Business logic mapping |
-| `stately` | Talk to your Stately.ai account, fetch machine definitions, export code | 3 — Business logic mapping |
+| `mermaid` | Validate & render Mermaid diagrams before commit | 3 — Business logic mapping |
+| `playwright-test` | Planner / Generator / Healer test agents | 6 / 7 — Quality immune system |
+
+**Stately MCP is disabled** — `@statelyai/mcp-server` 404s on npm. Visualize machines by pasting `src/machines/*.ts` into [stately.ai](https://stately.ai).
 
 ## How Cursor picks these up
 
@@ -16,7 +18,7 @@ from the command palette) for new servers to come online.
 Verify in Cursor with:
 
 1. `⌘/Ctrl + Shift + P` → `MCP: Show Servers`
-2. Both `mermaid` and `stately` should be listed as **running**.
+2. `mermaid` and `playwright-test` should be listed as **running**.
 3. In the chat sidebar, the wrench icon should show their tools.
 
 ## Mermaid MCP — picking a server
@@ -43,22 +45,15 @@ To swap servers, edit `.cursor/mcp.json` — only the `args` (package name) chan
    iterates without ever committing a broken diagram — this is the
    "validate-and-render workflow" the strategy report describes.
 
-## Stately MCP — picking a server
+## Stately Studio (web, not MCP)
 
-The Stately team ships `@statelyai/mcp-server` (npx-runnable). To authenticate:
+Paste `loginMachine.ts` or `onboardingMachine.ts` into Stately Studio import.
+Do not re-enable `stately` in `.cursor/mcp.json` until the package is published.
 
-```powershell
-# One-time auth — opens browser; reuses your Stately Studio login.
-npx -y @statelyai/mcp-server auth login
-```
+## Playwright Test MCP
 
-After auth, the MCP server can:
-- list machines in your Stately account
-- fetch the latest revision of a machine by ID
-- export machines as XState v5 TypeScript directly into `src/machines/`
-
-If `@statelyai/mcp-server` is unavailable on the registry, fall back to the
-`stately-mcp` community fork — same `args` shape, different package name.
+Configured as `playwright-test` in `.cursor/mcp.json`. Workflow:
+[`docs/test-agents-workflow.md`](test-agents-workflow.md).
 
 ## Adding more MCP servers
 

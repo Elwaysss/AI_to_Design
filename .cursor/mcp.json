@@ -5,11 +5,6 @@
       "args": ["-y", "mcp-mermaid"],
       "env": {}
     },
-    "stately": {
-      "command": "npx",
-      "args": ["-y", "@statelyai/mcp-server"],
-      "env": {}
-    },
     "playwright-test": {
       "command": "npx",
       "args": ["playwright", "run-test-mcp-server"],
