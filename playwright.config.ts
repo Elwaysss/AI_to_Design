@@ -31,7 +31,12 @@ export default defineConfig({
     command: 'npm run dev',
     url: 'http://127.0.0.1:5173',
     reuseExistingServer: !process.env.CI,
-    timeout: 120 * 1000
+    timeout: 120 * 1000,
+    // Force demo auth stub during e2e — even if developer has .env.local with Supabase.
+    env: {
+      VITE_SUPABASE_URL: '',
+      VITE_SUPABASE_ANON_KEY: ''
+    }
   },
 
   projects: process.env.CHROMATIC_PROJECT_TOKEN

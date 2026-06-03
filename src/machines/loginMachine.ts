@@ -10,6 +10,7 @@
  * Stately Studio import dialog.
  */
 import { setup, assign, fromPromise } from 'xstate';
+import { authenticateUser } from '../lib/authenticateUser';
 
 type LoginContext = {
   email: string;
@@ -26,25 +27,12 @@ type LoginEvent =
   | { type: 'RESET' };
 
 /**
- * Replace this stub with your real auth call. Kept inline so the file is
- * self-contained for the starter kit.
- *
- * Demo failure path: any email containing the substring "fail" is rejected
- * so the `failure` state is reachable from the UI without bypassing the
- * `looksValid` guard. The two defensive length / format checks below are
- * therefore dead code under the current guard but kept as a server-side
- * belt-and-suspenders example for when this stub is replaced.
+ * Auth invoke: Supabase `signInWithPassword` when `.env.local` is set,
+ * otherwise the demo stub (see `src/lib/authenticateUser.ts`).
+ * Run `npm run supabase:init` to wire real auth.
  */
 const authenticate = fromPromise<{ ok: true }, { email: string; password: string }>(
-  async ({ input }) => {
-    await new Promise((r) => setTimeout(r, 600));
-    if (input.email.toLowerCase().includes('fail')) {
-      throw new Error('Invalid credentials. Please try again.');
-    }
-    if (!input.email.includes('@')) throw new Error('Invalid email');
-    if (input.password.length < 6) throw new Error('Password too short');
-    return { ok: true };
-  }
+  ({ input }) => authenticateUser(input)
 );
 
 export const loginMachine = setup({

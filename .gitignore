@@ -20,6 +20,7 @@ build-storybook.log
 # ─── Env / secrets ───
 .env
 .env.*
+!.env.example
 *.local
 
 # ─── Logs ───
@@ -45,8 +46,10 @@ Thumbs.db
 
 # ─── Reference clones (kept on disk for browsing, NOT part of this repo) ───
 /awesome-design-md-main/
+/awesome-design-skills-main/
 /style-dictionary-main/
 /xstate-main/
+/material-ui-master/
 
 # ─── Pre-migration Vite scaffold (delete after Phase 0 migration completes) ───
 /AI_to_design/
@@ -55,3 +58,4 @@ Thumbs.db
 node-version.tmp
 .init-complete.json
 .design-from.json
+.supabase-init.json

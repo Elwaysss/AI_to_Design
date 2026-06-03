@@ -14,6 +14,7 @@
     "design:diff": "npx -y @google/design.md@latest diff",
     "init": "node scripts/init-product.mjs",
     "design:from": "node scripts/design-from.mjs",
+    "supabase:init": "node scripts/supabase-init.mjs",
     "test:e2e": "playwright test",
     "test:visual": "chromatic --playwright --exit-zero-on-changes",
     "agent:plan": "playwright test --agent=planner",
@@ -21,6 +22,7 @@
     "postinstall": "npm run tokens:build"
   },
   "dependencies": {
+    "@supabase/supabase-js": "^2.49.0",
     "@xstate/vue": "^5.0.0",
     "vue": "^3.5.34",
     "xstate": "^5.0.0"

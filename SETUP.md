@@ -261,6 +261,59 @@ git commit -m "chore: init product scaffold"
 
 ---
 
+## 10. Supabase Auth (`npm run supabase:init`)
+
+Wire real email/password auth into `loginMachine` via Supabase Auth.
+
+### Link an existing project (most common)
+
+1. Create a project at [supabase.com](https://supabase.com) (free tier is fine).
+2. Dashboard → **Project Settings → API** → copy **Project URL** and **anon public** key.
+3. Run:
+
+```powershell
+npm run supabase:init
+# paste URL + anon key when prompted
+# optional: personal access token to auto-apply supabase/schema.sql
+```
+
+Or non-interactive:
+
+```powershell
+npm run supabase:init -- --url "https://xxx.supabase.co" --anon-key "eyJ..." --force
+```
+
+### Create a new project via API
+
+Requires a [personal access token](https://supabase.com/dashboard/account/tokens):
+
+```powershell
+$env:SUPABASE_ACCESS_TOKEN = "sbp_..."
+npm run supabase:init -- --create --name "my-app" --force
+```
+
+### After init
+
+| What | Where |
+|---|---|
+| Env vars | `.env.local` (gitignored) |
+| Schema | `supabase/schema.sql` → profiles + RLS |
+| Auth logic | `src/lib/authenticateUser.ts` |
+| Client | `src/lib/supabaseClient.ts` |
+
+Create a test user: **Dashboard → Authentication → Users → Add user**.
+
+```powershell
+npm run dev
+# sign in with real credentials
+```
+
+E2E tests **keep using the demo stub** (no Supabase needed in CI). Playwright clears `VITE_SUPABASE_*` in `playwright.config.ts`.
+
+Get an access token for schema auto-apply: https://supabase.com/dashboard/account/tokens
+
+---
+
 ## Troubleshooting
 
 ### `npm install` errors
