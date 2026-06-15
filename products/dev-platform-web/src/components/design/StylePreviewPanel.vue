@@ -1,7 +1,10 @@
 <script setup lang="ts">
 import { computed } from 'vue'
+import { useRouter } from 'vue-router'
 import type { PreviewMode, PreviewVars, StyleSelection } from '../../types/style-preset'
 import { buildSampleHtml } from '../../lib/previewTokens'
+
+const router = useRouter()
 
 const props = defineProps<{
   selection: StyleSelection | null
@@ -17,11 +20,10 @@ const emit = defineEmits<{
 
 const productPreviewUrl = computed(() => {
   if (!props.selection) return ''
-  const q = new URLSearchParams({
-    kind: props.selection.tab,
-    slug: props.selection.slug
-  })
-  return `/preview/dashboard?${q.toString()}`
+  return router.resolve({
+    name: 'preview-dashboard',
+    query: { kind: props.selection.tab, slug: props.selection.slug }
+  }).href
 })
 
 const sampleSrcdoc = computed(() => {

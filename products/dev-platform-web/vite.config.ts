@@ -10,7 +10,10 @@ import { designExportApiPlugin } from './scripts/lib/design-export-api.mjs';
 const root = path.dirname(fileURLToPath(import.meta.url));
 const port = getDevPortFromRoot(root);
 
+const base = process.env.VITE_BASE_PATH ?? '/';
+
 export default defineConfig({
+  base,
   plugins: [vue(), tailwindcss(), watchTokensPlugin(), designExportApiPlugin()],
   server: {
     host: '127.0.0.1',

@@ -7,6 +7,10 @@ import {
 } from './pageRecipes'
 import { buildThemeStylesheet, resolveStyleTheme } from './styleThemes'
 import { alignPreviewVarsToTheme } from './previewThemeAlign'
+import { loadExportPack, loadPreviewVars, usesBakedData, loadDesignCatalog } from './designStaticData'
+import { downloadExportPack } from './downloadExportPack'
+
+export { loadDesignCatalog }
 
 export interface PreviewApiResponse {
   preview: PreviewVars
@@ -141,22 +145,14 @@ export function buildSampleHtml(vars: PreviewVars, title: string): string {
 </html>`
 }
 
-/** Fetch mapped preview vars from dev API. */
+/** Fetch mapped preview vars (dev API or baked static data). */
 export async function fetchPreviewVars(
   kind: 'aesthetic' | 'brand',
   slug: string,
-  displayNameZh?: string
+  _displayNameZh?: string
 ): Promise<PreviewApiResponse> {
-  const res = await fetch('/api/design/preview', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ kind, slug, displayNameZh })
-  })
-  if (!res.ok) {
-    const err = await res.json().catch(() => ({}))
-    throw new Error(err.error ?? `Preview failed (${res.status})`)
-  }
-  return res.json() as Promise<PreviewApiResponse>
+  const preview = await loadPreviewVars(kind, slug)
+  return { preview }
 }
 
 export async function exportDesignPackage(payload: {
@@ -164,7 +160,17 @@ export async function exportDesignPackage(payload: {
   slug: string
   displayNameZh?: string
   supplementNotes?: string
-}): Promise<{ outputDir: string; files: string[] }> {
+}): Promise<{ outputDir: string; files: string[]; downloaded?: boolean }> {
+  if (usesBakedData()) {
+    const pack = await loadExportPack(payload.kind, payload.slug)
+    const filename = `${pack.outputDir}-${payload.kind}-${payload.slug}.zip`
+    await downloadExportPack(pack, {
+      supplementNotes: payload.supplementNotes,
+      filename
+    })
+    return { outputDir: pack.outputDir, files: pack.fileList, downloaded: true }
+  }
+
   const res = await fetch('/api/design/export', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },

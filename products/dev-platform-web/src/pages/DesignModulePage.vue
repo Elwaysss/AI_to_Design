@@ -3,7 +3,8 @@ import { onMounted, ref, watch } from 'vue'
 import { useMachine } from '@xstate/vue'
 import { designModuleMachine } from '../machines/designModuleMachine'
 import { loadProductSpecSync } from '../lib/loadProductSpec'
-import { exportDesignPackage, fetchPreviewVars } from '../lib/previewTokens'
+import { exportDesignPackage, fetchPreviewVars, loadDesignCatalog } from '../lib/previewTokens'
+import { usesBakedData } from '../lib/designStaticData'
 import StyleCatalog from '../components/design/StyleCatalog.vue'
 import StylePreviewPanel from '../components/design/StylePreviewPanel.vue'
 import type { StyleCatalog as StyleCatalogType, StyleSelection, StyleTab } from '../types/style-preset'
@@ -13,8 +14,7 @@ const catalog = ref<StyleCatalogType | null>(null)
 const { snapshot, send } = useMachine(designModuleMachine)
 
 onMounted(async () => {
-  const res = await fetch('/api/design/catalog')
-  catalog.value = await res.json()
+  catalog.value = await loadDesignCatalog()
 })
 
 watch(
@@ -125,14 +125,22 @@ function onConfirm() {
 
     <div v-if="snapshot.context.exportResult" class="design-module__success">
       <h3>设计规范已导出</h3>
-      <p>输出目录：<code>{{ snapshot.context.exportResult.outputDir }}</code></p>
-      <ul>
+      <p v-if="usesBakedData()">
+        已下载 ZIP 包（<code>{{ snapshot.context.exportResult.outputDir }}</code>），解压后可得到 DESIGN.md、tokens 与示例页。
+      </p>
+      <template v-else>
+        <p>输出目录：<code>{{ snapshot.context.exportResult.outputDir }}</code></p>
+        <ul>
+          <li v-for="file in snapshot.context.exportResult.files" :key="file">{{ file }}</li>
+        </ul>
+        <p class="design-module__success-hint">
+          运行 <code>npm run design:validate</code> 可验证 DESIGN.md；示例页位于
+          <code>output/demo-saas/src/pages/DashboardExamplePage.vue</code>
+        </p>
+      </template>
+      <ul v-if="usesBakedData()">
         <li v-for="file in snapshot.context.exportResult.files" :key="file">{{ file }}</li>
       </ul>
-      <p class="design-module__success-hint">
-        运行 <code>npm run design:validate</code> 可验证 DESIGN.md；示例页位于
-        <code>output/demo-saas/src/pages/DashboardExamplePage.vue</code>
-      </p>
     </div>
   </div>
 </template>

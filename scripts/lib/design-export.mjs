@@ -62,7 +62,8 @@ async function copyTokenTree(src, dest) {
  *   slug: string,
  *   displayNameZh?: string,
  *   supplementNotes?: string,
- *   productSlug?: string
+ *   productSlug?: string,
+ *   skipValidate?: boolean
  * }} ExportRequest
  */
 
@@ -129,7 +130,9 @@ export async function exportDesign(req) {
   };
   await writeText(path.join(outputDir, '.design-export.json'), `${JSON.stringify(marker, null, 2)}\n`);
 
-  await runCommand('node', [path.join(REPO_ROOT, 'scripts/validate-design.mjs'), path.join(outputDir, 'DESIGN.md')], REPO_ROOT);
+  if (!req.skipValidate) {
+    await runCommand('node', [path.join(REPO_ROOT, 'scripts/validate-design.mjs'), path.join(outputDir, 'DESIGN.md')], REPO_ROOT);
+  }
 
   const files = [
     'DESIGN.md',
