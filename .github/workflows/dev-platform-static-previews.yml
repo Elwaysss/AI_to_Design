@@ -27,6 +27,11 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Fetch design source clones
+        run: |
+          git clone --depth 1 https://github.com/bergside/awesome-design-skills.git awesome-design-skills-main
+          git clone --depth 1 https://github.com/voltagent/awesome-design-md.git awesome-design-md-main
+
       - uses: actions/setup-node@v4
         with:
           node-version: '20'
